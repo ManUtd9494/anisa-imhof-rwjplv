@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Anisa Imhof – Swiss Real Estate Content Creator</title>
+  <meta name="description" content="Anisa Imhof – Swiss Real Estate Content Creator. Ich gebe Immobilienvermarktern die Bühne: cineastische Roomtouren, Interviews und Standort-Porträts für Premium-Immobilien in der Schweiz." />
+  <meta name="keywords" content="Real Estate Content Creator, Immobilien Schweiz, Roomtour, Makler Video, Immobilienvermarktung, Standort-Porträt, Anisa Imhof" />
+  <meta name="author" content="Anisa Imhof" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.anisaimhof.ch/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="de_CH" />
+  <meta property="og:site_name" content="Anisa Imhof" />
+  <meta property="og:title" content="Anisa Imhof – Swiss Real Estate Content Creator" />
+  <meta property="og:description" content="Ich gebe Immobilienvermarktern die Bühne. Cineastische Roomtouren, Interviews und Standort-Porträts für Premium-Immobilien in der Schweiz." />
+  <meta property="og:url" content="https://www.anisaimhof.ch/" />
+  <meta property="og:image" content="https://www.anisaimhof.ch/og-image.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Anisa Imhof – Swiss Real Estate Content Creator" />
+  <meta name="twitter:description" content="Ich gebe Immobilienvermarktern die Bühne. Cineastische Roomtouren, Interviews und Standort-Porträts für Premium-Immobilien in der Schweiz." />
+  <meta name="twitter:image" content="https://www.anisaimhof.ch/og-image.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Anisa Imhof – Swiss Real Estate Content Creator",
+    "image": "https://www.anisaimhof.ch/og-image.jpg",
+    "url": "https://www.anisaimhof.ch/",
+    "email": "anisa@anisaimhof.ch",
+    "priceRange": "$$$",
+    "areaServed": { "@type": "Country", "name": "Schweiz" },
+    "serviceType": ["Immobilien-Content", "Roomtour", "Standort-Porträt", "Makler-Interview"],
+    "founder": { "@type": "Person", "name": "Anisa Imhof", "jobTitle": "Swiss Real Estate Content Creator" },
+    "sameAs": ["https://www.instagram.com/anisaimhof/", "https://ch.linkedin.com/in/anisa-imhof-a01744206"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0d1b2a',
+            'navy-deep': '#060d16',
+            sand: '#c8b48f',
+            'sand-light': '#e6dbc7',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background: #060d16; }
+    @keyframes drift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .villa-fallback {
+      background: linear-gradient(120deg, #060d16, #0d1b2a, #1b3350, #0d1b2a);
+      background-size: 300% 300%;
+      animation: drift 18s ease-in-out infinite;
+    }
+    .logo-placeholder {
+      display: flex; align-items: center; justify-content: center; height: 3.5rem;
+      border: 1px dashed rgba(200,180,143,0.3); color: rgba(230,219,199,0.5);
+      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .logo-placeholder:hover { border-color: rgba(200,180,143,0.6); color: rgba(230,219,199,0.9); }
+    .legal { display: none; }
+    .legal:target { display: block; }
+    .h-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+    .h-scroll::-webkit-scrollbar { display: none; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Hero-Zeilen von Anfang an ausgeblendet (verhindert Aufblitzen / FOUC) */
+    .hero-line { opacity: 0; }
+
+    /* Scroll-Indikator im Hero */
+    @keyframes scrollpulse {
+      0% { transform: translateY(0); opacity: 0.8; }
+      50% { transform: translateY(10px); opacity: 0.3; }
+      100% { transform: translateY(0); opacity: 0.8; }
+    }
+    .scroll-hint { animation: scrollpulse 2s ease-in-out infinite; }
+
+    /* Portfolio Hover-Zoom */
+    .p-card img { transition: transform 0.6s ease; }
+    .p-card:hover img { transform: scale(1.05); }
+
+    /* Hold-to-answer Signature-Element */
+    .hold-ring { transition: stroke-dashoffset 0.1s linear; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .villa-fallback { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .scroll-hint { animation: none; }
+      .p-card:hover img { transform: none; }
+    }
+  </style>
+</head>
+<body class="font-body font-medium text-sand-light antialiased">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="fixed top-0 left-0 z-50 w-full">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
+      <a href="#top" class="font-display text-lg font-extrabold tracking-[0.2em] text-white">ANISA IMHOF</a>
+      <div class="flex items-center gap-8">
+        <nav class="hidden gap-10 text-xs font-semibold uppercase tracking-[0.25em] text-white md:flex" aria-label="Hauptnavigation">
+          <a href="#portfolio" class="opacity-80 transition hover:opacity-100" data-de="Roomtouren" data-en="Room Tours">Roomtouren</a>
+          <a href="#services" class="opacity-80 transition hover:opacity-100" data-de="Ansatz" data-en="Approach">Ansatz</a>
+          <a href="#prozess" class="opacity-80 transition hover:opacity-100" data-de="Ablauf" data-en="Process">Ablauf</a>
+          <a href="#kontakt" class="opacity-80 transition hover:opacity-100" data-de="Kontakt" data-en="Contact">Kontakt</a>
+        </nav>
+        <button id="lang-toggle" type="button" class="text-xs font-semibold uppercase tracking-[0.2em] text-white opacity-80 transition hover:opacity-100" aria-label="Sprache wechseln">
+          <span id="lang-de" class="opacity-100">DE</span><span class="opacity-40"> / </span><span id="lang-en" class="opacity-40">EN</span>
+        </button>
+        <button id="menu-toggle" class="md:hidden" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="block h-0.5 w-7 bg-white transition"></span>
+          <span class="mt-1.5 block h-0.5 w-7 bg-white transition"></span>
+          <span class="mt-1.5 block h-0.5 w-7 bg-white transition"></span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden bg-navy-deep/95 px-6 pb-6 backdrop-blur md:hidden">
+      <nav class="flex flex-col gap-4 text-sm font-semibold uppercase tracking-[0.25em] text-white" aria-label="Mobile Navigation">
+        <a href="#portfolio" class="border-b border-sand/10 pb-3" data-de="Roomtouren" data-en="Room Tours">Roomtouren</a>
+        <a href="#services" class="border-b border-sand/10 pb-3" data-de="Ansatz" data-en="Approach">Ansatz</a>
+        <a href="#prozess" class="border-b border-sand/10 pb-3" data-de="Ablauf" data-en="Process">Ablauf</a>
+        <a href="#kontakt" class="pb-1" data-de="Kontakt" data-en="Contact">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+  <!-- ===================== HERO / SCROLLYTELLING ===================== -->
+  <section id="top" class="relative" aria-label="Willkommen">
+    <div id="scroll-container" class="relative h-[500vh]">
+      <div class="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
+        <canvas id="villa-canvas" aria-hidden="true" class="absolute inset-0 h-full w-full object-cover"></canvas>
+        <div id="villa-fallback" class="villa-fallback absolute inset-0"></div>
+
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background-image: radial-gradient(70% 60% at 85% 0%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.22));"></div>
+        <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-navy-deep/85 via-navy-deep/25 to-transparent"></div>
+
+        <div class="pointer-events-none absolute inset-0 flex items-center justify-center px-6">
+          <div class="w-full max-w-5xl text-center">
+
+            <div class="hero-line" data-line="0">
+              <p class="mb-5 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Swiss Real Estate Content Creator" data-en="Swiss Real Estate Content Creator">Swiss Real Estate Content Creator</p>
+              <h1 class="font-display text-5xl font-black leading-[0.95] text-white sm:text-7xl md:text-8xl" data-de="Immobilien brauchen<br />keinen weiteren Film." data-en="Properties don't need<br />another film.">Immobilien brauchen<br />keinen weiteren Film.</h1>
+            </div>
+
+            <div class="hero-line" data-line="1">
+              <h2 class="font-display text-4xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl" data-de="Sie brauchen<br />Ihre Story." data-en="They need<br />their story.">Sie brauchen<br />Ihre Story.</h2>
+            </div>
+
+            <div class="hero-line" data-line="2">
+              <h2 class="font-display text-4xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl" data-de="Ein Objekt.<br />Mehrere Geschichten." data-en="One property.<br />Multiple stories.">Ein Objekt.<br />Mehrere Geschichten.</h2>
+            </div>
+
+            <div class="hero-line" data-line="3">
+              <h2 class="font-display text-4xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl" data-de="Nicht ich stehe<br />im Bild. Ihr Objekt." data-en="I'm not in the frame.<br />Your property is.">Nicht ich stehe<br />im Bild. Ihr Objekt.</h2>
+            </div>
+
+            <div class="hero-line" data-line="4">
+              <h2 class="font-display text-4xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl" data-de="Sie kennen die Immobilie.<br />Ich stelle die richtigen Fragen." data-en="You know the property.<br />I ask the right questions.">Sie kennen die Immobilie.<br />Ich stelle die richtigen Fragen.</h2>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="scroll-indicator" class="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
+          <p class="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-white/60" data-de="Scrollen" data-en="Scroll">Scrollen</p>
+          <div class="scroll-hint mx-auto h-6 w-px bg-sand"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATEMENT / POSITIONIERUNG ===================== -->
+  <section class="relative bg-navy-deep py-32">
+    <div class="mx-auto max-w-4xl px-6 text-center reveal">
+      <p class="mb-6 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Die Haltung" data-en="The principle">Die Haltung</p>
+      <p class="font-display text-3xl font-extrabold leading-tight text-white sm:text-5xl" data-de="Ich trete einen Schritt zurück,<br /><span class='text-sand'>damit Ihre Immobilie nach vorne rückt.</span>" data-en="I take a step back,<br /><span class='text-sand'>so your property can step forward.</span>">
+        Ich trete einen Schritt zurück,<br /><span class="text-sand">damit Ihre Immobilie nach vorne rückt.</span>
+      </p>
+      <p class="mx-auto mt-8 max-w-xl leading-relaxed text-sand-light/70" data-de="Nicht die Kamera steht im Vordergrund und nicht ich – sondern Ihr Objekt, Ihre Handschrift und die Menschen, die es am besten kennen." data-en="The focus is neither on the camera nor on me – but on your property, your signature and the people who know it best.">
+        Nicht die Kamera steht im Vordergrund und nicht ich – sondern Ihr Objekt, Ihre Handschrift und die Menschen, die es am besten kennen.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== SCENE 01 – THE PROPERTY ===================== -->
+  <section class="relative bg-navy py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="reveal grid gap-12 md:grid-cols-2 md:items-center">
+        <div>
+          <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Das Objekt" data-en="The property">Das Objekt</p>
+          <h2 class="font-display text-3xl font-black leading-tight text-white sm:text-4xl" data-de="Ein Objekt kann man zeigen.<br />Oder erlebbar machen." data-en="A property can be shown.<br />Or made tangible.">Ein Objekt kann man zeigen.<br />Oder erlebbar machen.</h2>
+        </div>
+        <div class="relative aspect-[4/3] overflow-hidden">
+          <div class="villa-fallback absolute inset-0"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCENE 02 – THE PERSON ===================== -->
+  <section class="relative bg-navy-deep py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="reveal grid gap-12 md:grid-cols-2 md:items-center">
+        <div class="relative order-2 aspect-[9/16] overflow-hidden md:order-1 md:max-w-[320px]">
+          <div class="villa-fallback absolute inset-0"></div>
+          <video class="absolute inset-0 h-full w-full object-cover" muted loop playsinline preload="none" aria-hidden="true"><!-- <source src="videos/makler-interview.mp4" type="video/mp4" /> --></video>
+        </div>
+        <div class="order-1 md:order-2">
+          <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Die Person" data-en="The person">Die Person</p>
+          <h2 class="font-display text-3xl font-black leading-tight text-white sm:text-4xl" data-de="Die stärkste Stimme für eine Immobilie?<br />Die Person, die sie kennt." data-en="The strongest voice for a property?<br />The person who knows it.">Die stärkste Stimme für eine Immobilie?<br />Die Person, die sie kennt.</h2>
+          <p class="mt-6 leading-relaxed text-sand-light/75" data-de="Keine Schauspieler. Keine auswendig gelernten Skripte. Ein geführtes Gespräch, das Ihre Expertise natürlich sichtbar macht." data-en="No actors. No memorised scripts. A guided conversation that makes your expertise visible naturally.">Keine Schauspieler. Keine auswendig gelernten Skripte. Ein geführtes Gespräch, das Ihre Expertise natürlich sichtbar macht.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCENE 03 – BEHIND THE CAMERA ===================== -->
+  <section class="relative bg-navy py-28">
+    <div class="mx-auto max-w-4xl px-6 text-center reveal">
+      <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Hinter der Kamera" data-en="Behind the camera">Hinter der Kamera</p>
+      <h2 class="font-display text-4xl font-black leading-tight text-white sm:text-5xl" data-de="Sie kennen die Immobilie.<br />Ich stelle die richtigen Fragen." data-en="You know the property.<br />I ask the right questions.">Sie kennen die Immobilie.<br />Ich stelle die richtigen Fragen.</h2>
+      <p class="mx-auto mt-6 max-w-xl leading-relaxed text-sand-light/75" data-de="Ich führe durch das Gespräch, finde die Geschichte hinter dem Objekt und übersetze sie in Content, der sich nach Ihnen anfühlt – nicht nach Werbung." data-en="I guide the conversation, find the story behind the property and turn it into content that feels like you – not like an advert.">Ich führe durch das Gespräch, finde die Geschichte hinter dem Objekt und übersetze sie in Content, der sich nach Ihnen anfühlt – nicht nach Werbung.</p>
+    </div>
+  </section>
+
+  <!-- ===================== ONE PROPERTY. MULTIPLE STORIES. ===================== -->
+  <section id="services" class="relative bg-navy-deep py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16 text-center">
+        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Der Ansatz" data-en="The approach">Der Ansatz</p>
+        <h2 class="font-display text-4xl font-black text-white sm:text-5xl reveal" data-de="Ein Objekt.<br />Mehrere Geschichten." data-en="One property.<br />Multiple stories.">Ein Objekt.<br />Mehrere Geschichten.</h2>
+        <p class="mx-auto mt-6 max-w-xl leading-relaxed text-sand-light/70" data-de="Ein Termin produziert Content für mehrere Kanäle Ihrer Immobilienvermarktung." data-en="One shoot produces content for multiple channels of your property marketing.">Ein Termin produziert Content für mehrere Kanäle Ihrer Immobilienvermarktung.</p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">01</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Objekt-Story" data-en="Property Story">Objekt-Story</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Cineastischer Rundgang, der Räume, Licht und Atmosphäre erlebbar macht." data-en="A cinematic tour that makes rooms, light and atmosphere tangible.">Cineastischer Rundgang, der Räume, Licht und Atmosphäre erlebbar macht.</p>
+        </article>
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">02</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Makler-Interview" data-en="Agent Interview">Makler-Interview</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Ein geführtes Gespräch, das Ihre Expertise und das Objekt authentisch verbindet." data-en="A guided conversation that authentically connects your expertise and the property.">Ein geführtes Gespräch, das Ihre Expertise und das Objekt authentisch verbindet.</p>
+        </article>
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">03</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Social Reel" data-en="Social Reel">Social Reel</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Vertikale Kurzformate für Instagram und Ihre persönliche Markenbildung." data-en="Vertical short formats for Instagram and your personal branding.">Vertikale Kurzformate für Instagram und Ihre persönliche Markenbildung.</p>
+        </article>
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">04</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Website-Film" data-en="Website Film">Website-Film</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Ein hochwertiger Film für Ihre eigene Website und Objektpräsentation." data-en="A high-quality film for your own website and property presentation.">Ein hochwertiger Film für Ihre eigene Website und Objektpräsentation.</p>
+        </article>
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">05</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Standort-Porträt" data-en="Location Portrait">Standort-Porträt</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Lage und Umgebung als Teil des Verkaufs – Lebensgefühl statt Adresse." data-en="Location and surroundings as part of the sale – lifestyle instead of an address.">Lage und Umgebung als Teil des Verkaufs – Lebensgefühl statt Adresse.</p>
+        </article>
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">06</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Kundenvideo" data-en="Client Video">Kundenvideo</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Ein persönlicher Clip zur direkten Weiterleitung an Interessenten und Suchkunden." data-en="A personal clip to forward directly to prospects and buyers.">Ein persönlicher Clip zur direkten Weiterleitung an Interessenten und Suchkunden.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SIGNATURE / HOLD-TO-ANSWER ===================== -->
+  <section class="relative bg-navy py-32">
+    <div class="mx-auto max-w-3xl px-6 text-center reveal">
+      <p class="mb-8 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Die richtige Frage" data-en="The right question">Die richtige Frage</p>
+      <h2 class="font-display text-3xl font-black leading-tight text-white sm:text-5xl" data-de="Was macht dieses Objekt besonders?" data-en="What makes this property special?">Was macht dieses Objekt besonders?</h2>
+      <div class="mt-12 flex flex-col items-center gap-5">
+        <button id="hold-btn" type="button" class="relative flex h-28 w-28 items-center justify-center rounded-full border border-sand/40 text-sand transition hover:border-sand" aria-label="Halten, um die Antwort zu enthüllen">
+          <svg width="112" height="112" viewBox="0 0 112 112" class="absolute inset-0 -rotate-90">
+            <circle cx="56" cy="56" r="52" fill="none" stroke="rgba(200,180,143,0.15)" stroke-width="2" />
+            <circle id="hold-progress" class="hold-ring" cx="56" cy="56" r="52" fill="none" stroke="#c8b48f" stroke-width="2" stroke-dasharray="326.7" stroke-dashoffset="326.7" stroke-linecap="round" />
+          </svg>
+          <span class="text-[0.6rem] font-semibold uppercase tracking-[0.2em]" data-de="Halten" data-en="Hold">Halten</span>
+        </button>
+        <p id="hold-answer" class="max-w-md leading-relaxed text-sand-light opacity-0 transition-opacity duration-700" data-de="Genau. Jedes Objekt hat eine Geschichte. Manchmal braucht es nur die richtige Frage." data-en="Exactly. Every property has a story. Sometimes it just takes the right question.">Genau. Jedes Objekt hat eine Geschichte. Manchmal braucht es nur die richtige Frage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SELECTED STORIES (Portfolio) ===================== -->
+  <section id="portfolio" class="relative bg-navy-deep py-28">
+    <div class="mx-auto mb-14 flex max-w-7xl items-end justify-between px-6">
+      <h2 class="font-display text-4xl font-black text-white sm:text-6xl reveal" data-de="Ausgewählte<br />Stories." data-en="Selected<br />Stories.">Ausgewählte<br />Stories.</h2>
+      <a href="https://www.instagram.com/anisaimhof/" target="_blank" rel="noopener noreferrer" class="hidden text-xs font-semibold uppercase tracking-[0.3em] text-sand transition hover:text-white sm:block" data-de="Instagram &rarr;" data-en="Instagram &rarr;">Instagram &rarr;</a>
+    </div>
+    <div class="h-scroll flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4">
+      <a href="#" class="p-card group relative block aspect-[9/16] w-[80vw] shrink-0 snap-start overflow-hidden sm:w-[42vw] lg:w-[26vw]">
+        <img src="zurich.png" alt="Luxusloft in Zürich – cineastische Objekt-Story von Anisa Imhof" loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-navy-deep to-transparent p-6">
+          <h3 class="font-display text-xl font-bold text-white">Luxusloft Zürich</h3>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60" data-de="Objekt-Story" data-en="Property Story">Objekt-Story</p>
+        </div>
+      </a>
+      <a href="#" class="p-card group relative block aspect-[9/16] w-[80vw] shrink-0 snap-start overflow-hidden sm:w-[42vw] lg:w-[26vw]">
+        <img src="lugano.png" alt="Penthouse in Lugano – Makler-Interview von Anisa Imhof" loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-navy-deep to-transparent p-6">
+          <h3 class="font-display text-xl font-bold text-white">Penthouse Lugano</h3>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60" data-de="Makler-Interview" data-en="Agent Interview">Makler-Interview</p>
+        </div>
+      </a>
+      <a href="#" class="p-card group relative block aspect-[9/16] w-[80vw] shrink-0 snap-start overflow-hidden sm:w-[42vw] lg:w-[26vw]">
+        <img src="luzern.png" alt="Residenz in Luzern – Standort-Porträt von Anisa Imhof" loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-navy-deep to-transparent p-6">
+          <h3 class="font-display text-xl font-bold text-white">Residenz Luzern</h3>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60" data-de="Standort-Porträt" data-en="Location Portrait">Standort-Porträt</p>
+        </div>
+      </a>
+      <a href="#" class="p-card group relative block aspect-[9/16] w-[80vw] shrink-0 snap-start overflow-hidden sm:w-[42vw] lg:w-[26vw]">
+        <img src="villaamsee.png" alt="Villa am See – cineastische Objekt-Story von Anisa Imhof" loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-navy-deep to-transparent p-6">
+          <h3 class="font-display text-xl font-bold text-white">Villa am See</h3>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60" data-de="Objekt-Story" data-en="Property Story">Objekt-Story</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== PROZESS ===================== -->
+  <section id="prozess" class="relative bg-navy py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16 text-center">
+        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Ablauf" data-en="Process">Ablauf</p>
+        <h2 class="font-display text-4xl font-black text-white sm:text-5xl reveal" data-de="So entsteht Ihre Story." data-en="How your story is created.">So entsteht Ihre Story.</h2>
+      </div>
+      <div class="grid gap-8 md:grid-cols-4">
+        <div class="reveal">
+          <p class="font-display text-5xl font-black text-sand/40">1</p>
+          <h3 class="mt-4 font-display text-xl font-bold text-white" data-de="Anfrage" data-en="Enquiry">Anfrage</h3>
+          <p class="mt-2 text-sm leading-relaxed text-sand-light/70" data-de="Sie schildern Objekt, Ziel und Zeitrahmen." data-en="You describe the property, goal and timeframe.">Sie schildern Objekt, Ziel und Zeitrahmen.</p>
+        </div>
+        <div class="reveal">
+          <p class="font-display text-5xl font-black text-sand/40">2</p>
+          <h3 class="mt-4 font-display text-xl font-bold text-white" data-de="Konzept" data-en="Concept">Konzept</h3>
+          <p class="mt-2 text-sm leading-relaxed text-sand-light/70" data-de="Ich entwickle die Bildsprache und den roten Faden." data-en="I develop the visual language and the narrative thread.">Ich entwickle die Bildsprache und den roten Faden.</p>
+        </div>
+        <div class="reveal">
+          <p class="font-display text-5xl font-black text-sand/40">3</p>
+          <h3 class="mt-4 font-display text-xl font-bold text-white" data-de="Dreh" data-en="Shoot">Dreh</h3>
+          <p class="mt-2 text-sm leading-relaxed text-sand-light/70" data-de="Cineastische Aufnahmen vor Ort, mit Blick fürs Detail." data-en="Cinematic footage on location, with an eye for detail.">Cineastische Aufnahmen vor Ort, mit Blick fürs Detail.</p>
+        </div>
+        <div class="reveal">
+          <p class="font-display text-5xl font-black text-sand/40">4</p>
+          <h3 class="mt-4 font-display text-xl font-bold text-white" data-de="Finaler Film" data-en="Final Film">Finaler Film</h3>
+          <p class="mt-2 text-sm leading-relaxed text-sand-light/70" data-de="Schnitt, Feinschliff und Auslieferung in Premium-Qualität." data-en="Editing, refinement and delivery in premium quality.">Schnitt, Feinschliff und Auslieferung in Premium-Qualität.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="relative bg-navy-deep py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <p class="mb-14 text-center text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Stimmen" data-en="Voices">Stimmen</p>
+      <div class="grid gap-8 md:grid-cols-3">
+        <figure class="reveal border border-sand/15 p-8">
+          <blockquote class="font-display text-lg leading-relaxed text-white">«Anisas Roomtour hat unsere Immobilie in einem völlig neuen Licht gezeigt – die Anfragen kamen sofort.»</blockquote>
+          <figcaption class="mt-6 text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60">Makler, Zürich</figcaption>
+        </figure>
+        <figure class="reveal border border-sand/15 p-8">
+          <blockquote class="font-display text-lg leading-relaxed text-white">«Cineastisch, professionell und mit einem echten Gespür für Atmosphäre. Absolute Empfehlung.»</blockquote>
+          <figcaption class="mt-6 text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60">Bauträger, Zentralschweiz</figcaption>
+        </figure>
+        <figure class="reveal border border-sand/15 p-8">
+          <blockquote class="font-display text-lg leading-relaxed text-white">«Die Zusammenarbeit war unkompliziert und das Resultat übertraf unsere Erwartungen.»</blockquote>
+          <figcaption class="mt-6 text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60">Immobilienpartner, Tessin</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== REFERENZEN ===================== -->
+  <section class="relative bg-navy py-20">
+    <div class="mx-auto max-w-6xl px-6">
+      <p class="mb-10 text-center text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Vertrauen führender Partner" data-en="Trusted by leading partners">Vertrauen führender Partner</p>
+      <div class="grid grid-cols-2 items-center gap-8 sm:grid-cols-4 md:grid-cols-6">
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" class="relative bg-navy-deep py-28">
+    <div class="mx-auto grid max-w-7xl gap-16 px-6 md:grid-cols-2 md:items-center">
+      <div class="relative aspect-[4/5] overflow-hidden">
+        <div class="villa-fallback absolute inset-0"></div>
+        <!-- Ersetzen durch: <img src="anisa-portrait.jpg" alt="Anisa Imhof bei der Arbeit hinter der Kamera" class="absolute inset-0 h-full w-full object-cover" /> -->
+      </div>
+      <div class="reveal">
+        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Über mich" data-en="About me">Über mich</p>
+        <h2 class="font-display text-4xl font-black text-white sm:text-5xl" data-de="Hinter Ihrer Story." data-en="Behind your story.">Hinter Ihrer Story.</h2>
+        <p class="mt-6 leading-relaxed text-sand-light/75" data-de="Ich arbeite dort, wo Immobilien, Menschen und Geschichten zusammenkommen. Hinter der Kamera führe ich durch Gespräche, entdecke die Besonderheiten eines Objekts und entwickle daraus Content, der sich authentisch nach Ihnen anfühlt. Sie kennen Ihre Immobilie. Ich sorge dafür, dass andere sie kennenlernen." data-en="I work where properties, people and stories come together. Behind the camera I guide conversations, discover what makes a property special and turn it into content that feels authentically like you. You know your property. I make sure others get to know it.">Ich arbeite dort, wo Immobilien, Menschen und Geschichten zusammenkommen. Hinter der Kamera führe ich durch Gespräche, entdecke die Besonderheiten eines Objekts und entwickle daraus Content, der sich authentisch nach Ihnen anfühlt. Sie kennen Ihre Immobilie. Ich sorge dafür, dass andere sie kennenlernen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== KONTAKT ===================== -->
+  <section id="kontakt" class="relative bg-navy py-28">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-12 text-center reveal">
+        <h2 class="font-display text-4xl font-black text-white sm:text-6xl" data-de="Ein Objekt.<br />Eine Geschichte, die noch<br />nicht erzählt wurde." data-en="A property.<br />A story that hasn't<br />been told yet.">Ein Objekt.<br />Eine Geschichte, die noch<br />nicht erzählt wurde.</h2>
+      </div>
+      <form id="kontakt-form" class="grid gap-5" novalidate>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="vorname" class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/70" data-de="Vorname" data-en="First name">Vorname</label>
+            <input id="vorname" name="vorname" type="text" required maxlength="80" autocomplete="given-name"
+              class="w-full border border-sand/20 bg-navy-deep px-4 py-3 text-white outline-none transition focus:border-sand" />
+          </div>
+          <div>
+            <label for="name" class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/70" data-de="Name" data-en="Last name">Name</label>
+            <input id="name" name="name" type="text" required maxlength="80" autocomplete="family-name"
+              class="w-full border border-sand/20 bg-navy-deep px-4 py-3 text-white outline-none transition focus:border-sand" />
+          </div>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="firma" class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/70" data-de="Firma" data-en="Company">Firma</label>
+            <input id="firma" name="firma" type="text" maxlength="120" autocomplete="organization"
+              class="w-full border border-sand/20 bg-navy-deep px-4 py-3 text-white outline-none transition focus:border-sand" />
+          </div>
+          <div>
+            <label for="email" class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/70" data-de="E-Mail" data-en="E-mail">E-Mail</label>
+            <input id="email" name="email" type="email" required maxlength="160" autocomplete="email"
+              class="w-full border border-sand/20 bg-navy-deep px-4 py-3 text-white outline-none transition focus:border-sand" />
+          </div>
+        </div>
+        <div>
+          <label for="message" class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/70" data-de="Objekt / Projekt" data-en="Property / Project">Objekt / Projekt</label>
+          <textarea id="message" name="message" rows="5" required maxlength="2000"
+            class="w-full border border-sand/20 bg-navy-deep px-4 py-3 text-white outline-none transition focus:border-sand"></textarea>
+        </div>
+        <button type="submit"
+          class="mt-2 justify-self-start border border-sand bg-sand px-10 py-4 text-xs font-bold uppercase tracking-[0.3em] text-navy-deep transition hover:bg-transparent hover:text-sand" data-de="Anfrage senden" data-en="Send enquiry">
+          Anfrage senden
+        </button>
+        <p id="form-status" class="text-sm text-sand" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================== IMPRESSUM ===================== -->
+  <section id="impressum" class="legal relative bg-navy py-28">
+    <div class="mx-auto max-w-3xl px-6">
+      <h2 class="font-display text-3xl font-extrabold text-white">Impressum</h2>
+      <div class="mt-6 space-y-4 text-sm leading-relaxed text-sand-light/75">
+        <p><strong class="text-white">Verantwortlich für den Inhalt</strong><br />Anisa Imhof<br />[Strasse und Hausnummer]<br />[PLZ Ort], Schweiz</p>
+        <p><strong class="text-white">Kontakt</strong><br />E-Mail: <a href="mailto:anisa@anisaimhof.ch" class="text-sand hover:underline">anisa@anisaimhof.ch</a></p>
+        <p><strong class="text-white">Haftungsausschluss</strong><br />Die Inhalte wurden mit grösster Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität wird keine Gewähr übernommen. Für externe Links sind deren Betreiber verantwortlich.</p>
+        <p><strong class="text-white">Urheberrecht</strong><br />Alle Inhalte unterliegen dem schweizerischen Urheberrecht. Verwendung nur mit schriftlicher Zustimmung.</p>
+        <p><a href="#top" class="text-sand hover:underline">&larr; Zurück zur Startseite</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DATENSCHUTZ ===================== -->
+  <section id="datenschutz" class="legal relative bg-navy py-28">
+    <div class="mx-auto max-w-3xl px-6">
+      <h2 class="font-display text-3xl font-extrabold text-white">Datenschutzerklärung</h2>
+      <div class="mt-6 space-y-4 text-sm leading-relaxed text-sand-light/75">
+        <p><strong class="text-white">1. Verantwortliche Stelle</strong><br />Anisa Imhof, [Adresse], Schweiz, <a href="mailto:anisa@anisaimhof.ch" class="text-sand hover:underline">anisa@anisaimhof.ch</a>.</p>
+        <p><strong class="text-white">2. Bearbeitung von Personendaten</strong><br />Im Einklang mit dem Schweizer Datenschutzgesetz (revDSG) und, soweit anwendbar, der DSGVO. Daten werden nur über das Kontaktformular freiwillig erhoben (Vorname, Name, Firma, E-Mail, Nachricht).</p>
+        <p><strong class="text-white">3. Zweck und Aufbewahrung</strong><br />Ausschliesslich zur Bearbeitung Ihrer Anfrage, keine Weitergabe ohne Einwilligung, Löschung sobald nicht mehr erforderlich.</p>
+        <p><strong class="text-white">4. Schriftarten</strong><br />Die Website lädt Google Fonts; dabei kann Ihre IP an Google übertragen werden. Für volle DSGVO-Konformität empfiehlt sich lokales Hosten.</p>
+        <p><strong class="text-white">5. Ihre Rechte</strong><br />Auskunft, Berichtigung, Löschung und Einschränkung über die oben genannte Adresse.</p>
+        <p><a href="#top" class="text-sand hover:underline">&larr; Zurück zur Startseite</a></p>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="border-t border-sand/10 bg-navy-deep py-12">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 sm:flex-row">
+      <p class="font-display text-sm font-extrabold tracking-[0.2em] text-white">ANISA IMHOF</p>
+      <div class="flex flex-wrap justify-center gap-6 text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60">
+        <a href="#impressum" class="hover:text-white" data-de="Impressum" data-en="Imprint">Impressum</a>
+        <a href="#datenschutz" class="hover:text-white" data-de="Datenschutz" data-en="Privacy">Datenschutz</a>
+        <a href="https://www.instagram.com/anisaimhof/" target="_blank" rel="noopener noreferrer" class="hover:text-white">Instagram</a>
+        <a href="https://ch.linkedin.com/in/anisa-imhof-a01744206" target="_blank" rel="noopener noreferrer" class="hover:text-white">LinkedIn</a>
+      </div>
+      <p class="text-xs text-sand-light/40">&copy; <span id="year"></span> Anisa Imhof</p>
+    </div>
+  </footer>
+
+  <!-- ===================== SCRIPT ===================== -->
+  <script>
+    'use strict';
+
+    const FRAME_CONFIG = { count: 193, path: 'frames/frame_', pad: 4, ext: '.webp' };
+    const HERO_LINES = 5;
+
+    function framePath(index) {
+      const n = String(index).padStart(FRAME_CONFIG.pad, '0');
+      return FRAME_CONFIG.path + n + FRAME_CONFIG.ext;
+    }
+
+    function preloadFrames() {
+      const images = [];
+      let loaded = 0;
+      let failed = false;
+      return new Promise((resolve) => {
+        for (let i = 1; i <= FRAME_CONFIG.count; i += 1) {
+          const img = new Image();
+          img.decoding = 'async';
+          img.onload = () => { loaded += 1; if (loaded === FRAME_CONFIG.count && !failed) resolve(images); };
+          img.onerror = () => { if (!failed) { failed = true; resolve([]); } };
+          img.src = framePath(i);
+          images[i - 1] = img;
+        }
+      });
+    }
+
+    function drawCover(ctx, canvas, img) {
+      const cw = canvas.width, ch = canvas.height;
+      const iw = img.naturalWidth || cw, ih = img.naturalHeight || ch;
+      const scale = Math.max(cw / iw, ch / ih);
+      const dw = iw * scale, dh = ih * scale;
+      const dx = (cw - dw) / 2, dy = (ch - dh) / 2;
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.drawImage(img, dx, dy, dw, dh);
+    }
+
+    function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
+
+    /* ===================== SPRACHE (DE Standard, EN per Button) ===================== */
+    let currentLang = 'de';
+    function applyLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-' + lang + ']').forEach((el) => {
+        const val = el.getAttribute('data-' + lang);
+        if (val !== null) el.innerHTML = val;
+      });
+      document.documentElement.setAttribute('lang', lang === 'de' ? 'de-CH' : 'en');
+      const de = document.getElementById('lang-de');
+      const en = document.getElementById('lang-en');
+      if (de && en) { de.style.opacity = lang === 'de' ? '1' : '0.4'; en.style.opacity = lang === 'en' ? '1' : '0.4'; }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('year').textContent = new Date().getFullYear();
+      applyLang('de');
+
+      const langToggle = document.getElementById('lang-toggle');
+      if (langToggle) langToggle.addEventListener('click', () => applyLang(currentLang === 'de' ? 'en' : 'de'));
+
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = !mobileMenu.classList.contains('hidden');
+          mobileMenu.classList.toggle('hidden');
+          menuToggle.setAttribute('aria-expanded', String(!isOpen));
+        });
+        mobileMenu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      document.querySelectorAll('.p-card').forEach((card) => {
+        const video = card.querySelector('video');
+        if (!video || !video.querySelector('source')) return;
+        card.addEventListener('mouseenter', () => { video.play().catch(() => {}); });
+        card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+      });
+
+      /* ===================== HOLD-TO-ANSWER (nur Interaktion, keine Aufnahme) ===================== */
+      const holdBtn = document.getElementById('hold-btn');
+      const holdProgress = document.getElementById('hold-progress');
+      const holdAnswer = document.getElementById('hold-answer');
+      const CIRC = 326.7;
+      const HOLD_MS = 1500;
+      let holdRaf = null, holdStart = 0;
+      function holdTick(now) {
+        if (!holdStart) holdStart = now;
+        const ratio = clamp((now - holdStart) / HOLD_MS, 0, 1);
+        holdProgress.setAttribute('stroke-dashoffset', String(CIRC * (1 - ratio)));
+        if (ratio >= 1) { holdAnswer.style.opacity = '1'; return; }
+        holdRaf = requestAnimationFrame(holdTick);
+      }
+      function holdReset() {
+        cancelAnimationFrame(holdRaf);
+        holdStart = 0;
+        holdProgress.setAttribute('stroke-dashoffset', String(CIRC));
+      }
+      if (holdBtn) {
+        ['mousedown', 'touchstart'].forEach((ev) => holdBtn.addEventListener(ev, (e) => { e.preventDefault(); holdReset(); holdRaf = requestAnimationFrame(holdTick); }, { passive: false }));
+        ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach((ev) => holdBtn.addEventListener(ev, holdReset));
+      }
+
+      /* ===================== KONTAKTFORMULAR ===================== */
+      const form = document.getElementById('kontakt-form');
+      const status = document.getElementById('form-status');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const vorname = form.vorname.value.trim();
+          const name = form.name.value.trim();
+          const firma = form.firma.value.trim();
+          const email = form.email.value.trim();
+          const message = form.message.value.trim();
+          const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+          if (!vorname || !name || !emailOk || !message) {
+            status.textContent = currentLang === 'de' ? 'Bitte alle Pflichtfelder korrekt ausfüllen.' : 'Please fill in all required fields correctly.';
+            return;
+          }
+          const subject = encodeURIComponent('Anfrage von ' + vorname + ' ' + name);
+          const body = encodeURIComponent(message + '\n\n' + vorname + ' ' + name + (firma ? '\n' + firma : '') + '\n' + email);
+          window.location.href = 'mailto:anisa@anisaimhof.ch?subject=' + subject + '&body=' + body;
+          status.textContent = currentLang === 'de' ? 'Danke! Ihr E-Mail-Programm wird geöffnet.' : 'Thank you! Your email client will open.';
+          form.reset();
+        });
+      }
+
+      const container = document.getElementById('scroll-container');
+      const canvas = document.getElementById('villa-canvas');
+      const fallback = document.getElementById('villa-fallback');
+      const ctx = canvas.getContext('2d');
+      const lines = Array.from(document.querySelectorAll('.hero-line'));
+
+      lines.forEach((line) => {
+        line.style.position = 'absolute';
+        line.style.inset = '0';
+        line.style.display = 'flex';
+        line.style.flexDirection = 'column';
+        line.style.alignItems = 'center';
+        line.style.justifyContent = 'center';
+        line.style.opacity = '0';
+        line.style.transform = 'translateY(16px)';
+        line.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        line.style.willChange = 'opacity, transform';
+      });
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function resizeCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(window.innerWidth * dpr);
+        canvas.height = Math.floor(window.innerHeight * dpr);
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+      }
+
+      function updateLines(progress) {
+        const active = clamp(Math.floor(progress * HERO_LINES), 0, HERO_LINES - 1);
+        lines.forEach((line, i) => {
+          const isActive = i === active;
+          line.style.opacity = isActive ? '1' : '0';
+          line.style.transform = isActive ? 'translateY(0)' : 'translateY(16px)';
+          if (isActive) line.removeAttribute('inert'); else line.setAttribute('inert', '');
+        });
+      }
+
+      let frames = [];
+      let ticking = false;
+      let currentProgress = 0;
+
+      function render() {
+        ticking = false;
+        updateLines(currentProgress);
+        if (frames.length && !prefersReduced) {
+          const idx = clamp(Math.round(currentProgress * (frames.length - 1)), 0, frames.length - 1);
+          const img = frames[idx];
+          if (img && img.complete) drawCover(ctx, canvas, img);
+        } else if (frames.length && prefersReduced) {
+          drawCover(ctx, canvas, frames[0]);
+        }
+      }
+
+      function computeProgress() {
+        const rect = container.getBoundingClientRect();
+        const scrollable = container.offsetHeight - window.innerHeight;
+        const scrolled = clamp(-rect.top, 0, scrollable);
+        currentProgress = scrollable > 0 ? scrolled / scrollable : 0;
+      }
+
+      function onScroll() {
+        computeProgress();
+        if (!ticking) { ticking = true; window.requestAnimationFrame(render); }
+      }
+
+      resizeCanvas();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => { resizeCanvas(); onScroll(); }, { passive: true });
+
+      preloadFrames().then((loaded) => {
+        if (loaded.length) {
+          frames = loaded;
+          fallback.style.opacity = '0';
+          fallback.style.transition = 'opacity 0.6s ease';
+        }
+        computeProgress();
+        render();
+      });
+
+      computeProgress();
+      render();
+
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+          });
+        }, { threshold: 0.2 });
+        revealEls.forEach((el) => io.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add('in'));
+      }
+    });
+  </script>
+
+</body>
+</html>
