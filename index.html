@@ -1,1795 +1,739 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de-CH">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  />
-  <title>Anisa Imhof – Scrollytelling Walkthrough</title>
-  <meta
-    name="description"
-    content="Responsive GSAP-Scrollytelling-Webseite mit sticky House-Container, Frame-Sequenz, Text-Fades und robuster Asset-Ladelogik."
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Anisa Imhof – Swiss Real Estate Content Creator</title>
+  <meta name="description" content="Anisa Imhof – Swiss Real Estate Content Creator. Ich gebe Immobilienvermarktern die Bühne: cineastische Roomtouren, Interviews und Standort-Porträts für Premium-Immobilien in der Schweiz." />
+  <meta name="keywords" content="Real Estate Content Creator, Immobilien Schweiz, Roomtour, Makler Video, Immobilienvermarktung, Standort-Porträt, Anisa Imhof" />
+  <meta name="author" content="Anisa Imhof" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.anisaimhof.ch/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="de_CH" />
+  <meta property="og:site_name" content="Anisa Imhof" />
+  <meta property="og:title" content="Anisa Imhof – Swiss Real Estate Content Creator" />
+  <meta property="og:description" content="Ich gebe Immobilienvermarktern die Bühne. Cineastische Roomtouren, Interviews und Standort-Porträts für Premium-Immobilien in der Schweiz." />
+  <meta property="og:url" content="https://www.anisaimhof.ch/" />
+  <meta property="og:image" content="https://www.anisaimhof.ch/og-image.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Anisa Imhof – Swiss Real Estate Content Creator" />
+  <meta name="twitter:description" content="Ich gebe Immobilienvermarktern die Bühne. Cineastische Roomtouren, Interviews und Standort-Porträts für Premium-Immobilien in der Schweiz." />
+  <meta name="twitter:image" content="https://www.anisaimhof.ch/og-image.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Anisa Imhof – Swiss Real Estate Content Creator",
+    "image": "https://www.anisaimhof.ch/og-image.jpg",
+    "url": "https://www.anisaimhof.ch/",
+    "email": "anisa@anisaimhof.ch",
+    "priceRange": "$$$",
+    "areaServed": { "@type": "Country", "name": "Schweiz" },
+    "serviceType": ["Immobilien-Content", "Roomtour", "Standort-Porträt", "Makler-Interview"],
+    "founder": { "@type": "Person", "name": "Anisa Imhof", "jobTitle": "Swiss Real Estate Content Creator" },
+    "sameAs": ["https://www.instagram.com/anisaimhof/", "https://ch.linkedin.com/in/anisa-imhof-a01744206"]
+  }
+  </script>
+
+  <link rel="icon" type="image/png" href="logo_v1.png" />
+  <link rel="apple-touch-icon" href="logo_v1.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0d1b2a',
+            'navy-deep': '#060d16',
+            sand: '#c8b48f',
+            'sand-light': '#e6dbc7',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
   <style>
-    :root {
-      --bg: #06101a;
-      --bg-elevated: #0b1725;
-      --bg-soft: #122235;
-      --surface: rgba(255, 255, 255, 0.08);
-      --surface-strong: rgba(255, 255, 255, 0.14);
-      --line: rgba(255, 255, 255, 0.12);
-      --text: #f4f7fb;
-      --text-soft: rgba(244, 247, 251, 0.75);
-      --text-dim: rgba(244, 247, 251, 0.5);
-      --accent: #c8b48f;
-      --accent-2: #eadfc8;
-      --danger: #ff7d7d;
-      --shadow: 0 20px 80px rgba(0, 0, 0, 0.35);
-      --radius-xl: 32px;
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --max-width: 1440px;
-      --header-height: 88px;
-      --copy-width: min(26vw, 340px);
-      --transition-fast: 220ms ease;
-      --transition-medium: 420ms ease;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      color: var(--text);
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(200, 180, 143, 0.08), transparent 22%),
-        radial-gradient(circle at left center, rgba(65, 108, 152, 0.12), transparent 24%),
-        linear-gradient(180deg, #07111b 0%, #08121d 25%, #09131f 55%, #060f18 100%);
-      overflow-x: hidden;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    .site-shell {
-      position: relative;
-      min-height: 100vh;
-      isolation: isolate;
-    }
-
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 60;
-      width: 100%;
-      pointer-events: none;
-    }
-
-    .site-header__inner {
-      width: min(calc(100% - 32px), var(--max-width));
-      margin: 0 auto;
-      min-height: var(--header-height);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 20px 0;
-      pointer-events: auto;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .brand__mark,
-    .brand__mark-fallback {
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      overflow: hidden;
-      flex: 0 0 auto;
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-        linear-gradient(135deg, #bca57d, #eadfc8);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .brand__mark img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .brand__mark-fallback {
-      display: none;
-      place-items: center;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: #0f1b28;
-      font-size: 0.95rem;
-    }
-
-    .brand__text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .brand__title {
-      margin: 0;
-      font-size: 0.95rem;
-      letter-spacing: 0.22em;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .brand__subtitle {
-      margin: 0;
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .top-nav {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(6, 16, 26, 0.48);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
-    }
-
-    .top-nav a {
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-soft);
-      transition: color var(--transition-fast);
-    }
-
-    .top-nav a:hover,
-    .top-nav a:focus-visible {
-      color: var(--text);
-    }
-
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-end;
-      padding: calc(var(--header-height) + 40px) 0 60px;
-    }
-
-    .hero__inner {
-      width: min(calc(100% - 32px), var(--max-width));
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-      gap: 48px;
-      align-items: end;
-    }
-
-    .hero__eyebrow {
-      margin: 0 0 16px;
-      font-size: 0.78rem;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .hero__title {
-      margin: 0;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: clamp(3rem, 6vw, 6.1rem);
-      line-height: 0.95;
-      letter-spacing: -0.03em;
-      max-width: 10ch;
-    }
-
-    .hero__text {
-      margin: 22px 0 0;
-      max-width: 54ch;
-      color: var(--text-soft);
-      font-size: clamp(1rem, 1.6vw, 1.15rem);
-      line-height: 1.72;
-    }
-
-    .hero__actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .btn {
-      appearance: none;
-      border: 0;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 52px;
-      padding: 0 22px;
-      font-size: 0.86rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-weight: 700;
-      cursor: pointer;
-      transition:
-        transform var(--transition-fast),
-        box-shadow var(--transition-fast),
-        background var(--transition-fast),
-        color var(--transition-fast);
-    }
-
-    .btn:hover,
-    .btn:focus-visible {
-      transform: translateY(-1px);
-    }
-
-    .btn--primary {
-      background: linear-gradient(135deg, #d6c19d, #bca57d);
-      color: #0d1824;
-      box-shadow: 0 16px 34px rgba(200, 180, 143, 0.28);
-    }
-
-    .btn--secondary {
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(14px);
-    }
-
-    .hero__card {
-      position: relative;
-      padding: 26px;
-      border-radius: var(--radius-xl);
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
-        linear-gradient(160deg, rgba(15, 31, 47, 0.82), rgba(7, 15, 24, 0.92));
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      min-height: 380px;
-    }
-
-    .hero__card::before {
-      content: "";
-      position: absolute;
-      inset: -20%;
-      background:
-        radial-gradient(circle at top right, rgba(200, 180, 143, 0.22), transparent 24%),
-        radial-gradient(circle at left center, rgba(95, 138, 180, 0.18), transparent 22%);
-      pointer-events: none;
-    }
-
-    .hero__card-tag {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--accent-2);
-      font-size: 0.75rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .hero__card h2 {
-      position: relative;
-      margin: 18px 0 0;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: clamp(1.8rem, 2.9vw, 3rem);
-      line-height: 1.02;
-      max-width: 11ch;
-    }
-
-    .hero__card p {
-      position: relative;
-      margin: 16px 0 0;
-      max-width: 36ch;
-      color: var(--text-soft);
-      line-height: 1.75;
-    }
-
-    .hero__metrics {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 30px;
-    }
-
-    .metric {
-      padding: 16px 18px;
-      border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .metric__value {
-      display: block;
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--accent-2);
-    }
-
-    .metric__label {
-      display: block;
-      margin-top: 6px;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-
-    .scrolly {
-      position: relative;
-      padding: 0 0 120px;
-    }
-
-    .scrolly__intro {
-      width: min(calc(100% - 32px), 1080px);
-      margin: 0 auto 42px;
-      text-align: center;
-    }
-
-    .scrolly__intro p:first-child {
-      margin: 0 0 12px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.28em;
-    }
-
-    .scrolly__intro h2 {
-      margin: 0;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: clamp(2rem, 4vw, 4rem);
-      line-height: 1.02;
-      letter-spacing: -0.03em;
-    }
-
-    .scrolly__intro .lead {
-      margin: 18px auto 0;
-      max-width: 68ch;
-      color: var(--text-soft);
-      line-height: 1.8;
-    }
-
-    #scroll-container {
-      position: relative;
-      height: 500vh;
-    }
-
-    #house-container {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .scene {
-      position: relative;
-      width: min(calc(100% - 32px), var(--max-width));
-      height: 100%;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: var(--copy-width) minmax(0, 1fr) var(--copy-width);
-      align-items: center;
-      gap: 28px;
-      padding: calc(var(--header-height) + 16px) 0 32px;
-    }
-
-    .copy-column {
-      position: relative;
-      height: min(72vh, 760px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-    }
-
-    .copy-stack {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .copy-card {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transform: translateY(22px);
-      transition:
-        opacity var(--transition-medium),
-        transform var(--transition-medium);
-      will-change: opacity, transform;
-    }
-
-    .copy-card.is-active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .copy-card__inner {
-      width: 100%;
-      padding: 26px 24px;
-      border-radius: var(--radius-xl);
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
-        linear-gradient(160deg, rgba(10, 22, 34, 0.76), rgba(7, 14, 22, 0.9));
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(22px);
-    }
-
-    .copy-card__kicker {
-      margin: 0 0 14px;
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .copy-card__title {
-      margin: 0;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: clamp(1.45rem, 2vw, 2rem);
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-    }
-
-    .copy-card__text {
-      margin: 14px 0 0;
-      color: var(--text-soft);
-      font-size: 0.98rem;
-      line-height: 1.72;
-    }
-
-    .copy-card__meta {
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      min-height: 32px;
-      padding: 0 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--text-soft);
-      font-size: 0.74rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .stage {
-      position: relative;
-      height: min(78vh, 840px);
-      min-height: 520px;
-      border-radius: min(3.2vw, 36px);
-      overflow: hidden;
-      box-shadow: 0 36px 120px rgba(0, 0, 0, 0.42);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: linear-gradient(180deg, #08131f 0%, #0c1a29 100%);
-      isolation: isolate;
-    }
-
-    .stage__canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      z-index: 2;
-      background: transparent;
-    }
-
-    .stage__fallback {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background:
-        radial-gradient(circle at 70% 18%, rgba(231, 210, 173, 0.14), transparent 18%),
-        linear-gradient(180deg, #122334 0%, #0e1d2d 48%, #0a1623 100%);
-    }
-
-    .stage__fallback::before {
-      content: "";
-      position: absolute;
-      inset: 6% 8%;
-      border-radius: 28px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
-        linear-gradient(135deg, rgba(200, 180, 143, 0.07), transparent 55%);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    }
-
-    .stage__overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      background:
-        linear-gradient(180deg, rgba(4, 10, 16, 0.14) 0%, rgba(4, 10, 16, 0) 22%, rgba(4, 10, 16, 0.12) 100%);
-    }
-
-    .stage__overlay::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 82% 0%, rgba(255, 255, 255, 0.08), transparent 28%),
-        linear-gradient(90deg, rgba(5, 10, 15, 0.08) 0%, rgba(5, 10, 15, 0) 36%, rgba(5, 10, 15, 0.1) 100%);
-      mix-blend-mode: screen;
-      opacity: 0.7;
-    }
-
-    .scene-ui {
-      position: absolute;
-      inset: 0;
-      z-index: 4;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-
-    .scene-ui__top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 22px;
-    }
-
-    .scene-ui__badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      min-height: 36px;
-      padding: 0 14px;
-      border-radius: 999px;
-      background: rgba(8, 15, 24, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
-      font-size: 0.76rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent-2);
-      font-weight: 700;
-    }
-
-    .scene-ui__dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 8px rgba(200, 180, 143, 0.08);
-    }
-
-    .scene-ui__status {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      min-height: 36px;
-      padding: 0 14px;
-      border-radius: 999px;
-      background: rgba(8, 15, 24, 0.42);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
-      color: var(--text-soft);
-      font-size: 0.76rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .scene-ui__bottom {
-      display: grid;
-      gap: 18px;
-      padding: 22px;
-    }
-
-    .progress {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: fit-content;
-      margin-left: auto;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(8, 15, 24, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
-    }
-
-    .progress__dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.22);
-      transition:
-        transform var(--transition-fast),
-        background var(--transition-fast),
-        box-shadow var(--transition-fast);
-    }
-
-    .progress__dot.is-active {
-      background: var(--accent);
-      transform: scale(1.15);
-      box-shadow: 0 0 0 8px rgba(200, 180, 143, 0.08);
-    }
-
-    .mobile-copy {
-      display: none;
-      width: 100%;
-      padding: 20px 20px calc(18px + env(safe-area-inset-bottom));
-      border-radius: 26px;
-      background:
-        linear-gradient(180deg, rgba(9, 18, 28, 0.78), rgba(9, 18, 28, 0.92)),
-        linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(18px);
-    }
-
-    .mobile-copy__kicker {
-      margin: 0 0 10px;
-      font-size: 0.72rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .mobile-copy__title {
-      margin: 0;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 1.4rem;
-      line-height: 1.08;
-    }
-
-    .mobile-copy__text {
-      margin: 12px 0 0;
-      color: var(--text-soft);
-      line-height: 1.68;
-      font-size: 0.95rem;
-    }
-
-    .loader {
-      position: absolute;
-      inset: 0;
-      z-index: 5;
-      display: grid;
-      place-items: center;
-      background:
-        linear-gradient(180deg, rgba(6, 16, 26, 0.38), rgba(6, 16, 26, 0.16)),
-        rgba(6, 16, 26, 0.12);
-      backdrop-filter: blur(4px);
-      transition: opacity 320ms ease, visibility 320ms ease;
-    }
-
-    .loader.is-hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .loader__panel {
-      width: min(90%, 380px);
-      padding: 24px;
-      border-radius: 24px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
-        linear-gradient(160deg, rgba(10, 22, 34, 0.8), rgba(7, 14, 22, 0.94));
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: var(--shadow);
-    }
-
-    .loader__title {
-      margin: 0;
-      font-size: 0.86rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 800;
-    }
-
-    .loader__text {
-      margin: 10px 0 0;
-      color: var(--text-soft);
-      line-height: 1.65;
-      font-size: 0.95rem;
-    }
-
-    .loader__bar {
-      position: relative;
-      height: 8px;
-      margin-top: 18px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
-      overflow: hidden;
-    }
-
-    .loader__bar-fill {
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 0%;
-      background: linear-gradient(90deg, #d9c49b, #bca57d);
-      border-radius: inherit;
-      transition: width 180ms ease;
-    }
-
-    .loader__meta {
-      margin-top: 12px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 0.78rem;
-      color: var(--text-dim);
-    }
-
-    .loader__error {
-      margin-top: 14px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(255, 125, 125, 0.08);
-      border: 1px solid rgba(255, 125, 125, 0.18);
-      color: #ffd1d1;
-      font-size: 0.9rem;
-      line-height: 1.55;
-      display: none;
-    }
-
-    .loader__error.is-visible {
-      display: block;
-    }
-
-    .info-section {
-      width: min(calc(100% - 32px), var(--max-width));
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      padding: 0 0 120px;
-    }
-
-    .info-card {
-      padding: 24px;
-      border-radius: 26px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
-        linear-gradient(160deg, rgba(10, 22, 34, 0.7), rgba(7, 14, 22, 0.88));
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
-    }
-
-    .info-card__kicker {
-      margin: 0 0 10px;
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .info-card__title {
-      margin: 0;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: 1.5rem;
-      line-height: 1.08;
-    }
-
-    .info-card__text {
-      margin: 12px 0 0;
-      color: var(--text-soft);
-      line-height: 1.72;
-      font-size: 0.96rem;
-    }
-
-    .contact {
-      width: min(calc(100% - 32px), 1040px);
-      margin: 0 auto 120px;
-      padding: 32px;
-      border-radius: 32px;
-      background:
-        radial-gradient(circle at top right, rgba(200, 180, 143, 0.12), transparent 22%),
-        linear-gradient(160deg, rgba(14, 30, 45, 0.82), rgba(8, 15, 24, 0.96));
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: var(--shadow);
-    }
-
-    .contact__kicker {
-      margin: 0 0 10px;
-      font-size: 0.76rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .contact__title {
-      margin: 0;
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: clamp(2rem, 4vw, 3.6rem);
-      line-height: 1.02;
-      max-width: 12ch;
-    }
-
-    .contact__text {
-      margin: 16px 0 0;
-      max-width: 62ch;
-      color: var(--text-soft);
-      line-height: 1.8;
-    }
-
-    .contact__meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 26px;
-    }
-
-    .contact__pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
-      padding: 0 16px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--text-soft);
-      font-size: 0.84rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .site-footer {
-      width: min(calc(100% - 32px), var(--max-width));
-      margin: 0 auto;
-      padding: 0 0 36px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      color: var(--text-dim);
-      font-size: 0.84rem;
-    }
-
-    @media (max-width: 1180px) {
-      .scene {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 18px;
-        padding-bottom: 18px;
-      }
-
-      .copy-column {
-        display: none;
-      }
-
-      .stage {
-        height: min(74vh, 760px);
-      }
-
-      .mobile-copy {
-        display: block;
-      }
-
-      .scene-ui__bottom {
-        gap: 14px;
-      }
-
-      .progress {
-        margin-left: 0;
-      }
-
-      .info-section {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 980px) {
-      .hero__inner {
-        grid-template-columns: 1fr;
-        gap: 26px;
-      }
-
-      .hero__card {
-        min-height: 320px;
-      }
-
-      .top-nav {
-        display: none;
-      }
-    }
-
-    @media (max-width: 720px) {
-      :root {
-        --header-height: 78px;
-      }
-
-      .site-header__inner {
-        width: min(calc(100% - 20px), var(--max-width));
-      }
-
-      .hero {
-        padding-bottom: 36px;
-      }
-
-      .hero__title {
-        max-width: 11ch;
-      }
-
-      .hero__actions {
-        gap: 10px;
-      }
-
-      .btn {
-        min-height: 48px;
-        padding: 0 18px;
-        letter-spacing: 0.14em;
-        font-size: 0.8rem;
-      }
-
-      #scroll-container {
-        height: 460vh;
-      }
-
-      .stage {
-        min-height: 460px;
-        height: min(72vh, 620px);
-      }
-
-      .scene-ui__top,
-      .scene-ui__bottom {
-        padding: 16px;
-      }
-
-      .scrolly__intro .lead,
-      .contact__text,
-      .hero__text {
-        line-height: 1.68;
-      }
-
-      .contact {
-        padding: 24px;
-        margin-bottom: 90px;
-      }
-
-      .site-footer {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
+    html { scroll-behavior: smooth; }
+    body { background: #060d16; }
+    @keyframes drift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .villa-fallback {
+      background: linear-gradient(120deg, #060d16, #0d1b2a, #1b3350, #0d1b2a);
+      background-size: 300% 300%;
+      animation: drift 18s ease-in-out infinite;
+    }
+    .logo-placeholder {
+      display: flex; align-items: center; justify-content: center; height: 3.5rem;
+      border: 1px dashed rgba(200,180,143,0.3); color: rgba(230,219,199,0.5);
+      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .logo-placeholder:hover { border-color: rgba(200,180,143,0.6); color: rgba(230,219,199,0.9); }
+    .legal { display: none; }
+    .legal:target { display: block; }
+    .h-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+    .h-scroll::-webkit-scrollbar { display: none; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    .hero-line { opacity: 0; }
+
+    @keyframes scrollpulse {
+      0% { transform: translateY(0); opacity: 0.8; }
+      50% { transform: translateY(10px); opacity: 0.3; }
+      100% { transform: translateY(0); opacity: 0.8; }
+    }
+    .scroll-hint { animation: scrollpulse 2s ease-in-out infinite; }
+
+    .p-card img { transition: transform 0.6s ease; }
+    .p-card:hover img { transform: scale(1.05); }
+
+    .hold-ring { transition: stroke-dashoffset 0.1s linear; }
 
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-      }
+      html { scroll-behavior: auto; }
+      .villa-fallback { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .scroll-hint { animation: none; }
+      .p-card:hover img { transform: none; }
     }
   </style>
 </head>
-<body>
-  <div class="site-shell">
-    <header class="site-header">
-      <div class="site-header__inner">
-        <a class="brand" href="#top" aria-label="Zur Startsektion">
-          <span class="brand__mark">
-            <img
-              src="./logo_v1.png"
-              alt="Anisa Imhof Logo"
-              loading="eager"
-              decoding="async"
-              onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.style.display='grid';"
-            />
-          </span>
-          <span class="brand__mark-fallback" aria-hidden="true">AI</span>
-          <span class="brand__text">
-            <span class="brand__title">Anisa Imhof</span>
-            <span class="brand__subtitle">Real Estate Content</span>
-          </span>
-        </a>
+<body class="font-body font-medium text-sand-light antialiased">
 
-        <nav class="top-nav" aria-label="Hauptnavigation">
-          <a href="#story">Walkthrough</a>
-          <a href="#services">Services</a>
-          <a href="#contact">Kontakt</a>
+  <header class="fixed top-0 left-0 z-50 w-full">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
+      <a href="#top" class="flex items-center gap-3">
+        <img src="logo_v1.png" alt="Anisa Imhof Logo" class="h-10 w-10 rounded-full" width="40" height="40" />
+        <span class="font-display text-lg font-extrabold tracking-[0.2em] text-white">ANISA IMHOF</span>
+      </a>
+      <div class="flex items-center gap-8">
+        <nav class="hidden gap-10 text-xs font-semibold uppercase tracking-[0.25em] text-white md:flex" aria-label="Hauptnavigation">
+          <a href="#portfolio" class="opacity-80 transition hover:opacity-100" data-de="Roomtouren" data-en="Room Tours">Roomtouren</a>
+          <a href="#services" class="opacity-80 transition hover:opacity-100" data-de="Ansatz" data-en="Approach">Ansatz</a>
+          <a href="#prozess" class="opacity-80 transition hover:opacity-100" data-de="Ablauf" data-en="Process">Ablauf</a>
+          <a href="#kontakt" class="opacity-80 transition hover:opacity-100" data-de="Kontakt" data-en="Contact">Kontakt</a>
         </nav>
+        <button id="lang-toggle" type="button" class="text-xs font-semibold uppercase tracking-[0.2em] text-white opacity-80 transition hover:opacity-100" aria-label="Sprache wechseln">
+          <span id="lang-de" class="opacity-100">DE</span><span class="opacity-40"> / </span><span id="lang-en" class="opacity-40">EN</span>
+        </button>
+        <button id="menu-toggle" class="md:hidden" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="block h-0.5 w-7 bg-white transition"></span>
+          <span class="mt-1.5 block h-0.5 w-7 bg-white transition"></span>
+          <span class="mt-1.5 block h-0.5 w-7 bg-white transition"></span>
+        </button>
       </div>
-    </header>
+    </div>
+    <div id="mobile-menu" class="hidden bg-navy-deep/95 px-6 pb-6 backdrop-blur md:hidden">
+      <nav class="flex flex-col gap-4 text-sm font-semibold uppercase tracking-[0.25em] text-white" aria-label="Mobile Navigation">
+        <a href="#portfolio" class="border-b border-sand/10 pb-3" data-de="Roomtouren" data-en="Room Tours">Roomtouren</a>
+        <a href="#services" class="border-b border-sand/10 pb-3" data-de="Ansatz" data-en="Approach">Ansatz</a>
+        <a href="#prozess" class="border-b border-sand/10 pb-3" data-de="Ablauf" data-en="Process">Ablauf</a>
+        <a href="#kontakt" class="pb-1" data-de="Kontakt" data-en="Contact">Kontakt</a>
+      </nav>
+    </div>
+  </header>
 
-    <main>
-      <section id="top" class="hero">
-        <div class="hero__inner">
+  <main>
+  <section id="top" class="relative" aria-label="Willkommen">
+    <div id="scroll-container" class="relative h-[500vh]">
+      <div class="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
+        <canvas id="villa-canvas" aria-hidden="true" class="absolute inset-0 h-full w-full object-cover"></canvas>
+        <div id="villa-fallback" class="villa-fallback absolute inset-0"></div>
+
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background-image: radial-gradient(70% 60% at 85% 0%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.22));"></div>
+        <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-navy-deep/85 via-navy-deep/25 to-transparent"></div>
+
+        <div class="pointer-events-none absolute inset-0 flex items-center justify-center px-6">
+          <div class="w-full max-w-5xl text-center">
+
+            <div class="hero-line" data-line="0">
+              <p class="mb-5 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Swiss Real Estate Content Creator" data-en="Swiss Real Estate Content Creator">Swiss Real Estate Content Creator</p>
+              <h1 class="font-display text-5xl font-black leading-[0.95] text-white sm:text-7xl md:text-8xl" data-de="Immobilien brauchen<br />keinen weiteren Film." data-en="Properties don't need<br />another film.">Immobilien brauchen<br />keinen weiteren Film.</h1>
+            </div>
+
+            <div class="hero-line" data-line="1">
+              <h2 class="font-display text-4xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl" data-de="Sie brauchen<br />Ihre Story." data-en="They need<br />their story.">Sie brauchen<br />Ihre Story.</h2>
+            </div>
+
+            <div class="hero-line" data-line="2">
+              <h2 class="font-display text-4xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl" data-de="Ein Objekt.<br />Mehrere Geschichten." data-en="One property.<br />Multiple stories.">Ein Objekt.<br />Mehrere Geschichten.</h2>
+            </div>
+
+            <div class="hero-line" data-line="3">
+              <h2 class="font-display text-4xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl" data-de="Nicht ich stehe<br />im Bild. Ihr Objekt." data-en="I'm not in the frame.<br />Your property is.">Nicht ich stehe<br />im Bild. Ihr Objekt.</h2>
+            </div>
+
+            <div class="hero-line" data-line="4">
+              <h2 class="font-display text-4xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl" data-de="Sie kennen die Immobilie.<br />Ich stelle die richtigen Fragen." data-en="You know the property.<br />I ask the right questions.">Sie kennen die Immobilie.<br />Ich stelle die richtigen Fragen.</h2>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="scroll-indicator" class="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
+          <p class="mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-white/60" data-de="Scrollen" data-en="Scroll">Scrollen</p>
+          <div class="scroll-hint mx-auto h-6 w-px bg-sand"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-navy-deep py-32">
+    <div class="mx-auto max-w-4xl px-6 text-center reveal">
+      <p class="mb-6 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Die Haltung" data-en="The principle">Die Haltung</p>
+      <p class="font-display text-3xl font-extrabold leading-tight text-white sm:text-5xl" data-de="Ich trete einen Schritt zurück,<br /><span class='text-sand'>damit Ihre Immobilie nach vorne rückt.</span>" data-en="I take a step back,<br /><span class='text-sand'>so your property can step forward.</span>">
+        Ich trete einen Schritt zurück,<br /><span class="text-sand">damit Ihre Immobilie nach vorne rückt.</span>
+      </p>
+      <p class="mx-auto mt-8 max-w-xl leading-relaxed text-sand-light/70" data-de="Nicht die Kamera steht im Vordergrund und nicht ich – sondern Ihr Objekt, Ihre Handschrift und die Menschen, die es am besten kennen." data-en="The focus is neither on the camera nor on me – but on your property, your signature and the people who know it best.">
+        Nicht die Kamera steht im Vordergrund und nicht ich – sondern Ihr Objekt, Ihre Handschrift und die Menschen, die es am besten kennen.
+      </p>
+    </div>
+  </section>
+
+  <section class="relative bg-navy py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="reveal grid gap-12 md:grid-cols-2 md:items-center">
+        <div>
+          <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Das Objekt" data-en="The property">Das Objekt</p>
+          <h2 class="font-display text-3xl font-black leading-tight text-white sm:text-4xl" data-de="Ein Objekt kann man zeigen.<br />Oder erlebbar machen." data-en="A property can be shown.<br />Or made tangible.">Ein Objekt kann man zeigen.<br />Oder erlebbar machen.</h2>
+        </div>
+        <div class="relative aspect-[4/3] overflow-hidden">
+          <div class="villa-fallback absolute inset-0"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-navy-deep py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="reveal grid gap-12 md:grid-cols-2 md:items-center">
+        <div class="relative order-2 aspect-[9/16] overflow-hidden md:order-1 md:max-w-[320px]">
+          <div class="villa-fallback absolute inset-0"></div>
+          <video class="absolute inset-0 h-full w-full object-cover" muted loop playsinline preload="none" aria-hidden="true"><!-- <source src="videos/makler-interview.mp4" type="video/mp4" /> --></video>
+        </div>
+        <div class="order-1 md:order-2">
+          <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Die Person" data-en="The person">Die Person</p>
+          <h2 class="font-display text-3xl font-black leading-tight text-white sm:text-4xl" data-de="Die stärkste Stimme für eine Immobilie?<br />Die Person, die sie kennt." data-en="The strongest voice for a property?<br />The person who knows it.">Die stärkste Stimme für eine Immobilie?<br />Die Person, die sie kennt.</h2>
+          <p class="mt-6 leading-relaxed text-sand-light/75" data-de="Keine Schauspieler. Keine auswendig gelernten Skripte. Ein geführtes Gespräch, das Ihre Expertise natürlich sichtbar macht." data-en="No actors. No memorised scripts. A guided conversation that makes your expertise visible naturally.">Keine Schauspieler. Keine auswendig gelernten Skripte. Ein geführtes Gespräch, das Ihre Expertise natürlich sichtbar macht.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-navy py-28">
+    <div class="mx-auto max-w-4xl px-6 text-center reveal">
+      <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Hinter der Kamera" data-en="Behind the camera">Hinter der Kamera</p>
+      <h2 class="font-display text-4xl font-black leading-tight text-white sm:text-5xl" data-de="Sie kennen die Immobilie.<br />Ich stelle die richtigen Fragen." data-en="You know the property.<br />I ask the right questions.">Sie kennen die Immobilie.<br />Ich stelle die richtigen Fragen.</h2>
+      <p class="mx-auto mt-6 max-w-xl leading-relaxed text-sand-light/75" data-de="Ich führe durch das Gespräch, finde die Geschichte hinter dem Objekt und übersetze sie in Content, der sich nach Ihnen anfühlt – nicht nach Werbung." data-en="I guide the conversation, find the story behind the property and turn it into content that feels like you – not like an advert.">Ich führe durch das Gespräch, finde die Geschichte hinter dem Objekt und übersetze sie in Content, der sich nach Ihnen anfühlt – nicht nach Werbung.</p>
+    </div>
+  </section>
+
+  <section id="services" class="relative bg-navy-deep py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16 text-center">
+        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Der Ansatz" data-en="The approach">Der Ansatz</p>
+        <h2 class="font-display text-4xl font-black text-white sm:text-5xl reveal" data-de="Ein Objekt.<br />Mehrere Geschichten." data-en="One property.<br />Multiple stories.">Ein Objekt.<br />Mehrere Geschichten.</h2>
+        <p class="mx-auto mt-6 max-w-xl leading-relaxed text-sand-light/70" data-de="Ein Termin produziert Content für mehrere Kanäle Ihrer Immobilienvermarktung." data-en="One shoot produces content for multiple channels of your property marketing.">Ein Termin produziert Content für mehrere Kanäle Ihrer Immobilienvermarktung.</p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">01</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Objekt-Story" data-en="Property Story">Objekt-Story</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Cineastischer Rundgang, der Räume, Licht und Atmosphäre erlebbar macht." data-en="A cinematic tour that makes rooms, light and atmosphere tangible.">Cineastischer Rundgang, der Räume, Licht und Atmosphäre erlebbar macht.</p>
+        </article>
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">02</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Makler-Interview" data-en="Agent Interview">Makler-Interview</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Ein geführtes Gespräch, das Ihre Expertise und das Objekt authentisch verbindet." data-en="A guided conversation that authentically connects your expertise and the property.">Ein geführtes Gespräch, das Ihre Expertise und das Objekt authentisch verbindet.</p>
+        </article>
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">03</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Social Reel" data-en="Social Reel">Social Reel</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Vertikale Kurzformate für Instagram und Ihre persönliche Markenbildung." data-en="Vertical short formats for Instagram and your personal branding.">Vertikale Kurzformate für Instagram und Ihre persönliche Markenbildung.</p>
+        </article>
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">04</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Website-Film" data-en="Website Film">Website-Film</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Ein hochwertiger Film für Ihre eigene Website und Objektpräsentation." data-en="A high-quality film for your own website and property presentation.">Ein hochwertiger Film für Ihre eigene Website und Objektpräsentation.</p>
+        </article>
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">05</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Standort-Porträt" data-en="Location Portrait">Standort-Porträt</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Lage und Umgebung als Teil des Verkaufs – Lebensgefühl statt Adresse." data-en="Location and surroundings as part of the sale – lifestyle instead of an address.">Lage und Umgebung als Teil des Verkaufs – Lebensgefühl statt Adresse.</p>
+        </article>
+        <article class="reveal border border-sand/15 p-8">
+          <span class="font-display text-2xl font-bold text-sand">06</span>
+          <h3 class="mt-3 font-display text-xl font-bold text-white" data-de="Kundenvideo" data-en="Client Video">Kundenvideo</h3>
+          <p class="mt-3 text-sm leading-relaxed text-sand-light/70" data-de="Ein persönlicher Clip zur direkten Weiterleitung an Interessenten und Suchkunden." data-en="A personal clip to forward directly to prospects and buyers.">Ein persönlicher Clip zur direkten Weiterleitung an Interessenten und Suchkunden.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-navy py-32">
+    <div class="mx-auto max-w-3xl px-6 text-center reveal">
+      <p class="mb-8 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Die richtige Frage" data-en="The right question">Die richtige Frage</p>
+      <h2 class="font-display text-3xl font-black leading-tight text-white sm:text-5xl" data-de="Was macht dieses Objekt besonders?" data-en="What makes this property special?">Was macht dieses Objekt besonders?</h2>
+      <div class="mt-12 flex flex-col items-center gap-5">
+        <button id="hold-btn" type="button" class="relative flex h-28 w-28 items-center justify-center rounded-full border border-sand/40 text-sand transition hover:border-sand" aria-label="Halten, um die Antwort zu enthüllen">
+          <svg width="112" height="112" viewBox="0 0 112 112" class="absolute inset-0 -rotate-90">
+            <circle cx="56" cy="56" r="52" fill="none" stroke="rgba(200,180,143,0.15)" stroke-width="2" />
+            <circle id="hold-progress" class="hold-ring" cx="56" cy="56" r="52" fill="none" stroke="#c8b48f" stroke-width="2" stroke-dasharray="326.7" stroke-dashoffset="326.7" stroke-linecap="round" />
+          </svg>
+          <span class="text-[0.6rem] font-semibold uppercase tracking-[0.2em]" data-de="Halten" data-en="Hold">Halten</span>
+        </button>
+        <p id="hold-answer" class="max-w-md leading-relaxed text-sand-light opacity-0 transition-opacity duration-700" data-de="Genau. Jedes Objekt hat eine Geschichte. Manchmal braucht es nur die richtige Frage." data-en="Exactly. Every property has a story. Sometimes it just takes the right question.">Genau. Jedes Objekt hat eine Geschichte. Manchmal braucht es nur die richtige Frage.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="relative bg-navy-deep py-28">
+    <div class="mx-auto mb-14 flex max-w-7xl items-end justify-between px-6">
+      <h2 class="font-display text-4xl font-black text-white sm:text-6xl reveal" data-de="Ausgewählte<br />Stories." data-en="Selected<br />Stories.">Ausgewählte<br />Stories.</h2>
+      <a href="https://www.instagram.com/anisaimhof/" target="_blank" rel="noopener noreferrer" class="hidden text-xs font-semibold uppercase tracking-[0.3em] text-sand transition hover:text-white sm:block" data-de="Instagram &rarr;" data-en="Instagram &rarr;">Instagram &rarr;</a>
+    </div>
+    <div class="h-scroll flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4">
+      <a href="#" class="p-card group relative block aspect-[9/16] w-[80vw] shrink-0 snap-start overflow-hidden sm:w-[42vw] lg:w-[26vw]">
+        <img src="zurich.png" alt="Luxusloft in Zürich – cineastische Objekt-Story von Anisa Imhof" loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-navy-deep to-transparent p-6">
+          <h3 class="font-display text-xl font-bold text-white">Luxusloft Zürich</h3>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60" data-de="Objekt-Story" data-en="Property Story">Objekt-Story</p>
+        </div>
+      </a>
+      <a href="#" class="p-card group relative block aspect-[9/16] w-[80vw] shrink-0 snap-start overflow-hidden sm:w-[42vw] lg:w-[26vw]">
+        <img src="lugano.png" alt="Penthouse in Lugano – Makler-Interview von Anisa Imhof" loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-navy-deep to-transparent p-6">
+          <h3 class="font-display text-xl font-bold text-white">Penthouse Lugano</h3>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60" data-de="Makler-Interview" data-en="Agent Interview">Makler-Interview</p>
+        </div>
+      </a>
+      <a href="#" class="p-card group relative block aspect-[9/16] w-[80vw] shrink-0 snap-start overflow-hidden sm:w-[42vw] lg:w-[26vw]">
+        <img src="luzern.png" alt="Residenz in Luzern – Standort-Porträt von Anisa Imhof" loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-navy-deep to-transparent p-6">
+          <h3 class="font-display text-xl font-bold text-white">Residenz Luzern</h3>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60" data-de="Standort-Porträt" data-en="Location Portrait">Standort-Porträt</p>
+        </div>
+      </a>
+      <a href="#" class="p-card group relative block aspect-[9/16] w-[80vw] shrink-0 snap-start overflow-hidden sm:w-[42vw] lg:w-[26vw]">
+        <img src="villaamsee.png" alt="Villa am See – cineastische Objekt-Story von Anisa Imhof" loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-navy-deep to-transparent p-6">
+          <h3 class="font-display text-xl font-bold text-white">Villa am See</h3>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60" data-de="Objekt-Story" data-en="Property Story">Objekt-Story</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section id="prozess" class="relative bg-navy py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16 text-center">
+        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Ablauf" data-en="Process">Ablauf</p>
+        <h2 class="font-display text-4xl font-black text-white sm:text-5xl reveal" data-de="So entsteht Ihre Story." data-en="How your story is created.">So entsteht Ihre Story.</h2>
+      </div>
+      <div class="grid gap-8 md:grid-cols-4">
+        <div class="reveal">
+          <p class="font-display text-5xl font-black text-sand/40">1</p>
+          <h3 class="mt-4 font-display text-xl font-bold text-white" data-de="Anfrage" data-en="Enquiry">Anfrage</h3>
+          <p class="mt-2 text-sm leading-relaxed text-sand-light/70" data-de="Sie schildern Objekt, Ziel und Zeitrahmen." data-en="You describe the property, goal and timeframe.">Sie schildern Objekt, Ziel und Zeitrahmen.</p>
+        </div>
+        <div class="reveal">
+          <p class="font-display text-5xl font-black text-sand/40">2</p>
+          <h3 class="mt-4 font-display text-xl font-bold text-white" data-de="Konzept" data-en="Concept">Konzept</h3>
+          <p class="mt-2 text-sm leading-relaxed text-sand-light/70" data-de="Ich entwickle die Bildsprache und den roten Faden." data-en="I develop the visual language and the narrative thread.">Ich entwickle die Bildsprache und den roten Faden.</p>
+        </div>
+        <div class="reveal">
+          <p class="font-display text-5xl font-black text-sand/40">3</p>
+          <h3 class="mt-4 font-display text-xl font-bold text-white" data-de="Dreh" data-en="Shoot">Dreh</h3>
+          <p class="mt-2 text-sm leading-relaxed text-sand-light/70" data-de="Cineastische Aufnahmen vor Ort, mit Blick fürs Detail." data-en="Cinematic footage on location, with an eye for detail.">Cineastische Aufnahmen vor Ort, mit Blick fürs Detail.</p>
+        </div>
+        <div class="reveal">
+          <p class="font-display text-5xl font-black text-sand/40">4</p>
+          <h3 class="mt-4 font-display text-xl font-bold text-white" data-de="Finaler Film" data-en="Final Film">Finaler Film</h3>
+          <p class="mt-2 text-sm leading-relaxed text-sand-light/70" data-de="Schnitt, Feinschliff und Auslieferung in Premium-Qualität." data-en="Editing, refinement and delivery in premium quality.">Schnitt, Feinschliff und Auslieferung in Premium-Qualität.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-navy-deep py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <p class="mb-14 text-center text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Stimmen" data-en="Voices">Stimmen</p>
+      <div class="grid gap-8 md:grid-cols-3">
+        <figure class="reveal border border-sand/15 p-8">
+          <blockquote class="font-display text-lg leading-relaxed text-white">«Anisas Roomtour hat unsere Immobilie in einem völlig neuen Licht gezeigt – die Anfragen kamen sofort.»</blockquote>
+          <figcaption class="mt-6 text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60">Makler, Zürich</figcaption>
+        </figure>
+        <figure class="reveal border border-sand/15 p-8">
+          <blockquote class="font-display text-lg leading-relaxed text-white">«Cineastisch, professionell und mit einem echten Gespür für Atmosphäre. Absolute Empfehlung.»</blockquote>
+          <figcaption class="mt-6 text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60">Bauträger, Zentralschweiz</figcaption>
+        </figure>
+        <figure class="reveal border border-sand/15 p-8">
+          <blockquote class="font-display text-lg leading-relaxed text-white">«Die Zusammenarbeit war unkompliziert und das Resultat übertraf unsere Erwartungen.»</blockquote>
+          <figcaption class="mt-6 text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60">Immobilienpartner, Tessin</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative bg-navy py-20">
+    <div class="mx-auto max-w-6xl px-6">
+      <p class="mb-10 text-center text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Vertrauen führender Partner" data-en="Trusted by leading partners">Vertrauen führender Partner</p>
+      <div class="grid grid-cols-2 items-center gap-8 sm:grid-cols-4 md:grid-cols-6">
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+        <div class="logo-placeholder">Logo</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="relative bg-navy-deep py-28">
+    <div class="mx-auto grid max-w-7xl gap-16 px-6 md:grid-cols-2 md:items-center">
+      <div class="relative aspect-[4/5] overflow-hidden">
+        <div class="villa-fallback absolute inset-0"></div>
+        <!-- Ersetzen durch: <img src="anisa-portrait.jpg" alt="Anisa Imhof bei der Arbeit hinter der Kamera" class="absolute inset-0 h-full w-full object-cover" /> -->
+      </div>
+      <div class="reveal">
+        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.45em] text-sand" data-de="Über mich" data-en="About me">Über mich</p>
+        <h2 class="font-display text-4xl font-black text-white sm:text-5xl" data-de="Hinter Ihrer Story." data-en="Behind your story.">Hinter Ihrer Story.</h2>
+        <p class="mt-6 leading-relaxed text-sand-light/75" data-de="Ich arbeite dort, wo Immobilien, Menschen und Geschichten zusammenkommen. Hinter der Kamera führe ich durch Gespräche, entdecke die Besonderheiten eines Objekts und entwickle daraus Content, der sich authentisch nach Ihnen anfühlt. Sie kennen Ihre Immobilie. Ich sorge dafür, dass andere sie kennenlernen." data-en="I work where properties, people and stories come together. Behind the camera I guide conversations, discover what makes a property special and turn it into content that feels authentically like you. You know your property. I make sure others get to know it.">Ich arbeite dort, wo Immobilien, Menschen und Geschichten zusammenkommen. Hinter der Kamera führe ich durch Gespräche, entdecke die Besonderheiten eines Objekts und entwickle daraus Content, der sich authentisch nach Ihnen anfühlt. Sie kennen Ihre Immobilie. Ich sorge dafür, dass andere sie kennenlernen.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt" class="relative bg-navy py-28">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-12 text-center reveal">
+        <h2 class="font-display text-4xl font-black text-white sm:text-6xl" data-de="Ein Objekt.<br />Eine Geschichte, die noch<br />nicht erzählt wurde." data-en="A property.<br />A story that hasn't<br />been told yet.">Ein Objekt.<br />Eine Geschichte, die noch<br />nicht erzählt wurde.</h2>
+      </div>
+      <form id="kontakt-form" class="grid gap-5" novalidate>
+        <div class="grid gap-5 sm:grid-cols-2">
           <div>
-            <p class="hero__eyebrow">Swiss Real Estate Content Creator</p>
-            <h1 class="hero__title">Scrollytelling mit echter Raumtiefe.</h1>
-            <p class="hero__text">
-              Diese Version ist auf GitHub Pages sauber lauffähig, lädt die
-              Frame-Sequenz robust über relative Pfade und hält den sticky
-              Visual-Container stabil im Viewport, während die Story
-              scrollgesteuert durch das Objekt führt.
-            </p>
-
-            <div class="hero__actions">
-              <a class="btn btn--primary" href="#story">Walkthrough starten</a>
-              <a class="btn btn--secondary" href="#contact">Projekt anfragen</a>
-            </div>
+            <label for="vorname" class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/70" data-de="Vorname" data-en="First name">Vorname</label>
+            <input id="vorname" name="vorname" type="text" required maxlength="80" autocomplete="given-name"
+              class="w-full border border-sand/20 bg-navy-deep px-4 py-3 text-white outline-none transition focus:border-sand" />
           </div>
-
-          <aside class="hero__card" aria-label="Projektübersicht">
-            <span class="hero__card-tag">GSAP + ScrollTrigger</span>
-            <h2>Stabil für GitHub Pages und responsive optimiert.</h2>
-            <p>
-              Das Setup erwartet <strong>index.html</strong>,
-              <strong>logo_v1.png</strong> sowie
-              <strong>./frames/frame_0001.webp</strong> bis
-              <strong>./frames/frame_0188.webp</strong> im selben Projekt.
-            </p>
-
-            <div class="hero__metrics">
-              <div class="metric">
-                <span class="metric__value">188</span>
-                <span class="metric__label">Frames</span>
-              </div>
-              <div class="metric">
-                <span class="metric__value">500vh</span>
-                <span class="metric__label">Scroll-Strecke</span>
-              </div>
-              <div class="metric">
-                <span class="metric__value">Sticky</span>
-                <span class="metric__label">Viewport-Container</span>
-              </div>
-              <div class="metric">
-                <span class="metric__value">Canvas</span>
-                <span class="metric__label">Flüssige Ausgabe</span>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section id="story" class="scrolly" aria-label="Scrollytelling Walkthrough">
-        <div class="scrolly__intro">
-          <p>Walkthrough</p>
-          <h2>Von der Ankunft bis zur wohnlichen Tiefe.</h2>
-          <p class="lead">
-            Beim Scrollen bleibt der Container fixiert, während die Bildsequenz
-            weich durch den Raum gleitet. Parallel dazu wechseln links und rechts
-            die inhaltlichen Botschaften synchron zur Bewegungslogik der Szene.
-          </p>
-        </div>
-
-        <div id="scroll-container">
-          <div id="house-container">
-            <div class="scene">
-              <aside class="copy-column" aria-hidden="true">
-                <div class="copy-stack">
-                  <article class="copy-card is-active" data-side="left" data-phase="0">
-                    <div class="copy-card__inner">
-                      <p class="copy-card__kicker">Phase 01</p>
-                      <h3 class="copy-card__title">Präsenz beginnt bereits vor dem Eintritt.</h3>
-                      <p class="copy-card__text">
-                        Der erste Blick entscheidet über Spannung, Ruhe und
-                        Wertigkeit. Deshalb startet die Geschichte mit einer
-                        klaren, fokussierten Aussenperspektive.
-                      </p>
-                      <div class="copy-card__meta">
-                        <span class="chip">Aussenwirkung</span>
-                        <span class="chip">Premium-Einstieg</span>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article class="copy-card" data-side="left" data-phase="1">
-                    <div class="copy-card__inner">
-                      <p class="copy-card__kicker">Phase 02</p>
-                      <h3 class="copy-card__title">Die Schwelle erzeugt Neugier und Bewegung.</h3>
-                      <p class="copy-card__text">
-                        Die Perspektive zieht kontrolliert ins Objekt hinein und
-                        macht sofort spürbar, dass hier nicht nur gescrollt,
-                        sondern wirklich geführt wird.
-                      </p>
-                      <div class="copy-card__meta">
-                        <span class="chip">Räumliche Führung</span>
-                        <span class="chip">Story-Moment</span>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article class="copy-card" data-side="left" data-phase="2">
-                    <div class="copy-card__inner">
-                      <p class="copy-card__kicker">Phase 03</p>
-                      <h3 class="copy-card__title">Tiefe entsteht durch ruhige Kameralogik.</h3>
-                      <p class="copy-card__text">
-                        Eine konstante Achse sorgt dafür, dass die Bewegung
-                        organisch bleibt und der Nutzer das Gefühl eines echten
-                        architektonischen Rundgangs erhält.
-                      </p>
-                      <div class="copy-card__meta">
-                        <span class="chip">Kontinuität</span>
-                        <span class="chip">Guided Experience</span>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article class="copy-card" data-side="left" data-phase="3">
-                    <div class="copy-card__inner">
-                      <p class="copy-card__kicker">Phase 04</p>
-                      <h3 class="copy-card__title">Innenräume dürfen Atmosphäre statt Lärm erzeugen.</h3>
-                      <p class="copy-card__text">
-                        Der Content bleibt bewusst reduziert, damit das Visuelle
-                        führt und die Textbotschaften nur dort auftauchen, wo sie
-                        den räumlichen Eindruck verstärken.
-                      </p>
-                      <div class="copy-card__meta">
-                        <span class="chip">Weniger Ablenkung</span>
-                        <span class="chip">Mehr Wirkung</span>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article class="copy-card" data-side="left" data-phase="4">
-                    <div class="copy-card__inner">
-                      <p class="copy-card__kicker">Phase 05</p>
-                      <h3 class="copy-card__title">Am Ende steht ein klarer Conversion-Moment.</h3>
-                      <p class="copy-card__text">
-                        Nach dem Walkthrough ist der Nutzer emotional bereits im
-                        Raum angekommen und wesentlich empfänglicher für
-                        Kontaktaufnahme oder Angebotsanfrage.
-                      </p>
-                      <div class="copy-card__meta">
-                        <span class="chip">CTA-Bereitschaft</span>
-                        <span class="chip">Lead-Fokus</span>
-                      </div>
-                    </div>
-                  </article>
-                </div>
-              </aside>
-
-              <div class="stage" aria-label="Frame-basierter Walkthrough">
-                <div class="stage__fallback" id="stage-fallback"></div>
-                <canvas id="villa-canvas" class="stage__canvas" aria-hidden="true"></canvas>
-                <div class="stage__overlay"></div>
-
-                <div class="scene-ui">
-                  <div class="scene-ui__top">
-                    <div class="scene-ui__badge">
-                      <span class="scene-ui__dot"></span>
-                      <span id="phase-label">Aussenansicht</span>
-                    </div>
-                    <div class="scene-ui__status" id="frame-status">Frame 0001 / 0188</div>
-                  </div>
-
-                  <div class="scene-ui__bottom">
-                    <div class="progress" aria-label="Walkthrough-Fortschritt">
-                      <span class="progress__dot is-active" data-progress-dot="0"></span>
-                      <span class="progress__dot" data-progress-dot="1"></span>
-                      <span class="progress__dot" data-progress-dot="2"></span>
-                      <span class="progress__dot" data-progress-dot="3"></span>
-                      <span class="progress__dot" data-progress-dot="4"></span>
-                    </div>
-
-                    <div class="mobile-copy" id="mobile-copy">
-                      <p class="mobile-copy__kicker" id="mobile-kicker">Phase 01</p>
-                      <h3 class="mobile-copy__title" id="mobile-title">
-                        Präsenz beginnt bereits vor dem Eintritt.
-                      </h3>
-                      <p class="mobile-copy__text" id="mobile-text">
-                        Der erste Blick entscheidet über Spannung, Ruhe und
-                        Wertigkeit. Deshalb startet die Geschichte mit einer
-                        klaren, fokussierten Aussenperspektive.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="loader" id="loader">
-                  <div class="loader__panel">
-                    <p class="loader__title">Frames werden geladen</p>
-                    <p class="loader__text">
-                      Die Sequenz wird initialisiert. Sobald der erste Frame
-                      bereit ist, startet die Ansicht; die restlichen Frames
-                      werden im Hintergrund nachgeladen.
-                    </p>
-
-                    <div class="loader__bar" aria-hidden="true">
-                      <div class="loader__bar-fill" id="loader-bar-fill"></div>
-                    </div>
-
-                    <div class="loader__meta">
-                      <span id="loader-count">0 / 188</span>
-                      <span id="loader-percent">0%</span>
-                    </div>
-
-                    <div class="loader__error" id="loader-error"></div>
-                  </div>
-                </div>
-              </div>
-
-              <aside class="copy-column" aria-hidden="true">
-                <div class="copy-stack">
-                  <article class="copy-card is-active" data-side="right" data-phase="0">
-                    <div class="copy-card__inner">
-                      <p class="copy-card__kicker">Message</p>
-                      <h3 class="copy-card__title">Immobilienkommunikation mit filmischer Qualität.</h3>
-                      <p class="copy-card__text">
-                        Statt statischer Hero-Bilder entsteht eine Bewegung, die
-                        Marke, Raumgefühl und Hochwertigkeit gleichzeitig trägt.
-                      </p>
-                      <div class="copy-card__meta">
-                        <span class="chip">Editorial Look</span>
-                        <span class="chip">High-End</span>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article class="copy-card" data-side="right" data-phase="1">
-                    <div class="copy-card__inner">
-                      <p class="copy-card__kicker">Message</p>
-                      <h3 class="copy-card__title">Die Nutzerreise wird visuell statt technisch erklärt.</h3>
-                      <p class="copy-card__text">
-                        Gute Scrollytelling-Seiten zeigen nicht bloss Inhalt,
-                        sondern bauen ein kontrolliertes Erlebnis auf, das fast
-                        wie eine Kamerafahrt wirkt.
-                      </p>
-                      <div class="copy-card__meta">
-                        <span class="chip">GSAP Trigger</span>
-                        <span class="chip">Canvas Rendering</span>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article class="copy-card" data-side="right" data-phase="2">
-                    <div class="copy-card__inner">
-                      <p class="copy-card__kicker">Message</p>
-                      <h3 class="copy-card__title">Die visuelle Story bleibt sauber und responsiv.</h3>
-                      <p class="copy-card__text">
-                        Auf Desktop flankieren Textboxen das Motiv; auf Mobile
-                        wird die gleiche Information in einem kompakten Overlay
-                        unter dem Bild geführt.
-                      </p>
-                      <div class="copy-card__meta">
-                        <span class="chip">Desktop + Mobile</span>
-                        <span class="chip">Adaptive UI</span>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article class="copy-card" data-side="right" data-phase="3">
-                    <div class="copy-card__inner">
-                      <p class="copy-card__kicker">Message</p>
-                      <h3 class="copy-card__title">Fallbacks verhindern leere oder weisse Ansichten.</h3>
-                      <p class="copy-card__text">
-                        Wenn einzelne Dateien fehlen, bleibt die Oberfläche
-                        funktionsfähig und zeigt präzise an, welches Asset-Setup
-                        erwartet wird.
-                      </p>
-                      <div class="copy-card__meta">
-                        <span class="chip">Error Handling</span>
-                        <span class="chip">Robuster Loader</span>
-                      </div>
-                    </div>
-                  </article>
-
-                  <article class="copy-card" data-side="right" data-phase="4">
-                    <div class="copy-card__inner">
-                      <p class="copy-card__kicker">Message</p>
-                      <h3 class="copy-card__title">Fokus auf hochwertige Leads statt Spielerei.</h3>
-                      <p class="copy-card__text">
-                        Das Erlebnis ist visuell stark, aber klar auf Vertrauen,
-                        Differenzierung und Anfragebereitschaft ausgelegt.
-                      </p>
-                      <div class="copy-card__meta">
-                        <span class="chip">Lead-Optimiert</span>
-                        <span class="chip">Markenwirkung</span>
-                      </div>
-                    </div>
-                  </article>
-                </div>
-              </aside>
-            </div>
+          <div>
+            <label for="name" class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/70" data-de="Name" data-en="Last name">Name</label>
+            <input id="name" name="name" type="text" required maxlength="80" autocomplete="family-name"
+              class="w-full border border-sand/20 bg-navy-deep px-4 py-3 text-white outline-none transition focus:border-sand" />
           </div>
         </div>
-      </section>
-
-      <section id="services" class="info-section" aria-label="Zusatzinformationen">
-        <article class="info-card">
-          <p class="info-card__kicker">Technik</p>
-          <h3 class="info-card__title">Canvas statt DOM-Bildwechsel</h3>
-          <p class="info-card__text">
-            Das Rendering erfolgt auf einem Canvas, damit die Sequenz flüssig
-            bleibt und die Bilder sauber auf die jeweilige Viewport-Grösse
-            skaliert werden können.
-          </p>
-        </article>
-
-        <article class="info-card">
-          <p class="info-card__kicker">Pfadstruktur</p>
-          <h3 class="info-card__title">Relative Assets für GitHub Pages</h3>
-          <p class="info-card__text">
-            Alle kritischen Ressourcen werden relativ über <code>./</code>
-            geladen. Dadurch funktioniert der Code sowohl im Repo-Unterordner
-            von GitHub Pages als auch lokal im Projektroot.
-          </p>
-        </article>
-
-        <article class="info-card">
-          <p class="info-card__kicker">UX</p>
-          <h3 class="info-card__title">Synchronisierte Text- und Bildlogik</h3>
-          <p class="info-card__text">
-            Die Textboxen wechseln phasenbasiert genau dann, wenn die Bewegung
-            in der Sequenz inhaltlich einen neuen räumlichen Abschnitt erreicht.
-          </p>
-        </article>
-      </section>
-
-      <section id="contact" class="contact" aria-label="Kontakt">
-        <p class="contact__kicker">Kontakt</p>
-        <h2 class="contact__title">Bereit für die produktive Integration.</h2>
-        <p class="contact__text">
-          Wenn du die gleiche Logik nun auf dein finales Branding oder deine
-          echten Immobilien-Frames übertragen willst, ist dieses Grundgerüst
-          bereits sauber vorbereitet und kann direkt erweitert werden.
-        </p>
-        <div class="contact__meta">
-          <span class="contact__pill">index.html</span>
-          <span class="contact__pill">logo_v1.png</span>
-          <span class="contact__pill">frames/frame_0001.webp – frame_0188.webp</span>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="firma" class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/70" data-de="Firma" data-en="Company">Firma</label>
+            <input id="firma" name="firma" type="text" maxlength="120" autocomplete="organization"
+              class="w-full border border-sand/20 bg-navy-deep px-4 py-3 text-white outline-none transition focus:border-sand" />
+          </div>
+          <div>
+            <label for="email" class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/70" data-de="E-Mail" data-en="E-mail">E-Mail</label>
+            <input id="email" name="email" type="email" required maxlength="160" autocomplete="email"
+              class="w-full border border-sand/20 bg-navy-deep px-4 py-3 text-white outline-none transition focus:border-sand" />
+          </div>
         </div>
-      </section>
-    </main>
+        <div>
+          <label for="message" class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/70" data-de="Objekt / Projekt" data-en="Property / Project">Objekt / Projekt</label>
+          <textarea id="message" name="message" rows="5" required maxlength="2000"
+            class="w-full border border-sand/20 bg-navy-deep px-4 py-3 text-white outline-none transition focus:border-sand"></textarea>
+        </div>
+        <button type="submit"
+          class="mt-2 justify-self-start border border-sand bg-sand px-10 py-4 text-xs font-bold uppercase tracking-[0.3em] text-navy-deep transition hover:bg-transparent hover:text-sand" data-de="Anfrage senden" data-en="Send enquiry">
+          Anfrage senden
+        </button>
+        <p id="form-status" class="text-sm text-sand" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
 
-    <footer class="site-footer">
-      <span>© <span id="year"></span> Anisa Imhof</span>
-      <span>GSAP ScrollTrigger Walkthrough</span>
-    </footer>
-  </div>
+  <section id="impressum" class="legal relative bg-navy py-28">
+    <div class="mx-auto max-w-3xl px-6">
+      <h2 class="font-display text-3xl font-extrabold text-white">Impressum</h2>
+      <div class="mt-6 space-y-4 text-sm leading-relaxed text-sand-light/75">
+        <p><strong class="text-white">Verantwortlich für den Inhalt</strong><br />Anisa Imhof<br />[Strasse und Hausnummer]<br />[PLZ Ort], Schweiz</p>
+        <p><strong class="text-white">Kontakt</strong><br />E-Mail: <a href="mailto:anisa@anisaimhof.ch" class="text-sand hover:underline">anisa@anisaimhof.ch</a></p>
+        <p><strong class="text-white">Haftungsausschluss</strong><br />Die Inhalte wurden mit grösster Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität wird keine Gewähr übernommen. Für externe Links sind deren Betreiber verantwortlich.</p>
+        <p><strong class="text-white">Urheberrecht</strong><br />Alle Inhalte unterliegen dem schweizerischen Urheberrecht. Verwendung nur mit schriftlicher Zustimmung.</p>
+        <p><a href="#top" class="text-sand hover:underline">&larr; Zurück zur Startseite</a></p>
+      </div>
+    </div>
+  </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <section id="datenschutz" class="legal relative bg-navy py-28">
+    <div class="mx-auto max-w-3xl px-6">
+      <h2 class="font-display text-3xl font-extrabold text-white">Datenschutzerklärung</h2>
+      <div class="mt-6 space-y-4 text-sm leading-relaxed text-sand-light/75">
+        <p><strong class="text-white">1. Verantwortliche Stelle</strong><br />Anisa Imhof, [Adresse], Schweiz, <a href="mailto:anisa@anisaimhof.ch" class="text-sand hover:underline">anisa@anisaimhof.ch</a>.</p>
+        <p><strong class="text-white">2. Bearbeitung von Personendaten</strong><br />Im Einklang mit dem Schweizer Datenschutzgesetz (revDSG) und, soweit anwendbar, der DSGVO. Daten werden nur über das Kontaktformular freiwillig erhoben (Vorname, Name, Firma, E-Mail, Nachricht).</p>
+        <p><strong class="text-white">3. Zweck und Aufbewahrung</strong><br />Ausschliesslich zur Bearbeitung Ihrer Anfrage, keine Weitergabe ohne Einwilligung, Löschung sobald nicht mehr erforderlich.</p>
+        <p><strong class="text-white">4. Schriftarten</strong><br />Die Website lädt Google Fonts; dabei kann Ihre IP an Google übertragen werden. Für volle DSGVO-Konformität empfiehlt sich lokales Hosten.</p>
+        <p><strong class="text-white">5. Ihre Rechte</strong><br />Auskunft, Berichtigung, Löschung und Einschränkung über die oben genannte Adresse.</p>
+        <p><a href="#top" class="text-sand hover:underline">&larr; Zurück zur Startseite</a></p>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <footer class="border-t border-sand/10 bg-navy-deep py-12">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 sm:flex-row">
+      <a href="#top" class="flex items-center gap-3">
+        <img src="logo_v1.png" alt="Anisa Imhof Logo" class="h-8 w-8 rounded-full" width="32" height="32" />
+        <span class="font-display text-sm font-extrabold tracking-[0.2em] text-white">ANISA IMHOF</span>
+      </a>
+      <div class="flex flex-wrap justify-center gap-6 text-xs font-semibold uppercase tracking-[0.25em] text-sand-light/60">
+        <a href="#impressum" class="hover:text-white" data-de="Impressum" data-en="Imprint">Impressum</a>
+        <a href="#datenschutz" class="hover:text-white" data-de="Datenschutz" data-en="Privacy">Datenschutz</a>
+        <a href="https://www.instagram.com/anisaimhof/" target="_blank" rel="noopener noreferrer" class="hover:text-white">Instagram</a>
+        <a href="https://ch.linkedin.com/in/anisa-imhof-a01744206" target="_blank" rel="noopener noreferrer" class="hover:text-white">LinkedIn</a>
+      </div>
+      <p class="text-xs text-sand-light/40">&copy; <span id="year"></span> Anisa Imhof</p>
+    </div>
+  </footer>
 
   <script>
-    (() => {
-      "use strict";
+    'use strict';
 
-      const FRAME_CONFIG = {
-        count: 188,
-        path: "./frames/frame_",
-        pad: 4,
-        ext: ".webp"
-      };
+    const FRAME_CONFIG = { count: 188, path: './frames/frame_', pad: 4, ext: '.webp' };
+    const HERO_LINES = 5;
 
-      const PHASES = [
-        {
-          label: "Aussenansicht",
-          kicker: "Phase 01",
-          title: "Präsenz beginnt bereits vor dem Eintritt.",
-          text: "Der erste Blick entscheidet über Spannung, Ruhe und Wertigkeit. Deshalb startet die Geschichte mit einer klaren, fokussierten Aussenperspektive.",
-          minProgress: 0.0,
-          maxProgress: 0.18
-        },
-        {
-          label: "Schwelle",
-          kicker: "Phase 02",
-          title: "Die Schwelle erzeugt Neugier und Bewegung.",
-          text: "Die Perspektive zieht kontrolliert ins Objekt hinein und macht sofort spürbar, dass hier nicht nur gescrollt, sondern wirklich geführt wird.",
-          minProgress: 0.18,
-          maxProgress: 0.38
-        },
-        {
-          label: "Tiefe",
-          kicker: "Phase 03",
-          title: "Tiefe entsteht durch ruhige Kameralogik.",
-          text: "Eine konstante Achse sorgt dafür, dass die Bewegung organisch bleibt und der Nutzer das Gefühl eines echten architektonischen Rundgangs erhält.",
-          minProgress: 0.38,
-          maxProgress: 0.62
-        },
-        {
-          label: "Wohnraum",
-          kicker: "Phase 04",
-          title: "Innenräume dürfen Atmosphäre statt Lärm erzeugen.",
-          text: "Der Content bleibt bewusst reduziert, damit das Visuelle führt und die Textbotschaften nur dort auftauchen, wo sie den räumlichen Eindruck verstärken.",
-          minProgress: 0.62,
-          maxProgress: 0.82
-        },
-        {
-          label: "Conversion",
-          kicker: "Phase 05",
-          title: "Am Ende steht ein klarer Conversion-Moment.",
-          text: "Nach dem Walkthrough ist der Nutzer emotional bereits im Raum angekommen und wesentlich empfänglicher für Kontaktaufnahme oder Angebotsanfrage.",
-          minProgress: 0.82,
-          maxProgress: 1.0
+    function framePath(index) {
+      const n = String(index).padStart(FRAME_CONFIG.pad, '0');
+      return FRAME_CONFIG.path + n + FRAME_CONFIG.ext;
+    }
+
+    function preloadFrames() {
+      const images = [];
+      let loaded = 0;
+      let failed = false;
+      return new Promise((resolve) => {
+        for (let i = 1; i <= FRAME_CONFIG.count; i += 1) {
+          const img = new Image();
+          img.decoding = 'async';
+          img.onload = () => { loaded += 1; if (loaded === FRAME_CONFIG.count && !failed) resolve(images); };
+          img.onerror = () => { if (!failed) { failed = true; resolve([]); } };
+          img.src = framePath(i);
+          images[i - 1] = img;
         }
-      ];
+      });
+    }
 
-      const canvas = document.getElementById("villa-canvas");
-      const ctx = canvas.getContext("2d", { alpha: true });
-      const loader = document.getElementById("loader");
-      const loaderBarFill = document.getElementById("loader-bar-fill");
-      const loaderCount = document.getElementById("loader-count");
-      const loaderPercent = document.getElementById("loader-percent");
-      const loaderError = document.getElementById("loader-error");
-      const phaseLabel = document.getElementById("phase-label");
-      const frameStatus = document.getElementById("frame-status");
-      const stageFallback = document.getElementById("stage-fallback");
-      const mobileKicker = document.getElementById("mobile-kicker");
-      const mobileTitle = document.getElementById("mobile-title");
-      const mobileText = document.getElementById("mobile-text");
-      const progressDots = Array.from(document.querySelectorAll("[data-progress-dot]"));
-      const copyCards = Array.from(document.querySelectorAll(".copy-card"));
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function drawCover(ctx, canvas, img) {
+      const cw = canvas.width, ch = canvas.height;
+      const iw = img.naturalWidth || cw, ih = img.naturalHeight || ch;
+      const scale = Math.max(cw / iw, ch / ih);
+      const dw = iw * scale, dh = ih * scale;
+      const dx = (cw - dw) / 2, dy = (ch - dh) / 2;
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.drawImage(img, dx, dy, dw, dh);
+    }
 
-      let activePhaseIndex = 0;
-      let currentFrameIndex = 1;
-      let renderedFrameIndex = 0;
-      let loadedCount = 0;
-      let firstFrameResolved = false;
-      let hasAnyFrameLoaded = false;
-      let scrollTriggerInstance = null;
+    function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 
-      const imageCache = new Array(FRAME_CONFIG.count + 1).fill(null);
-      const imagePromises = new Array(FRAME_CONFIG.count + 1).fill(null);
-      const failedFrames = new Set();
+    let currentLang = 'de';
+    function applyLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-' + lang + ']').forEach((el) => {
+        const val = el.getAttribute('data-' + lang);
+        if (val !== null) el.innerHTML = val;
+      });
+      document.documentElement.setAttribute('lang', lang === 'de' ? 'de-CH' : 'en');
+      const de = document.getElementById('lang-de');
+      const en = document.getElementById('lang-en');
+      if (de && en) { de.style.opacity = lang === 'de' ? '1' : '0.4'; en.style.opacity = lang === 'en' ? '1' : '0.4'; }
+    }
 
-      function padFrame(value) {
-        return String(value).padStart(FRAME_CONFIG.pad, "0");
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('year').textContent = new Date().getFullYear();
+      applyLang('de');
+
+      const langToggle = document.getElementById('lang-toggle');
+      if (langToggle) langToggle.addEventListener('click', () => applyLang(currentLang === 'de' ? 'en' : 'de'));
+
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = !mobileMenu.classList.contains('hidden');
+          mobileMenu.classList.toggle('hidden');
+          menuToggle.setAttribute('aria-expanded', String(!isOpen));
+        });
+        mobileMenu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
       }
 
-      function framePath(index) {
-        return new URL(
-          `${FRAME_CONFIG.path}${padFrame(index)}${FRAME_CONFIG.ext}`,
-          document.baseURI
-        ).href;
+      document.querySelectorAll('.p-card').forEach((card) => {
+        const video = card.querySelector('video');
+        if (!video || !video.querySelector('source')) return;
+        card.addEventListener('mouseenter', () => { video.play().catch(() => {}); });
+        card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+      });
+
+      const holdBtn = document.getElementById('hold-btn');
+      const holdProgress = document.getElementById('hold-progress');
+      const holdAnswer = document.getElementById('hold-answer');
+      const CIRC = 326.7;
+      const HOLD_MS = 1500;
+      let holdRaf = null, holdStart = 0;
+      function holdTick(now) {
+        if (!holdStart) holdStart = now;
+        const ratio = clamp((now - holdStart) / HOLD_MS, 0, 1);
+        holdProgress.setAttribute('stroke-dashoffset', String(CIRC * (1 - ratio)));
+        if (ratio >= 1) { holdAnswer.style.opacity = '1'; return; }
+        holdRaf = requestAnimationFrame(holdTick);
+      }
+      function holdReset() {
+        cancelAnimationFrame(holdRaf);
+        holdStart = 0;
+        holdProgress.setAttribute('stroke-dashoffset', String(CIRC));
+      }
+      if (holdBtn) {
+        ['mousedown', 'touchstart'].forEach((ev) => holdBtn.addEventListener(ev, (e) => { e.preventDefault(); holdReset(); holdRaf = requestAnimationFrame(holdTick); }, { passive: false }));
+        ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach((ev) => holdBtn.addEventListener(ev, holdReset));
       }
 
-      function updateLoaderUi() {
-        const percent = Math.round((loadedCount / FRAME_CONFIG.count) * 100);
-        loaderBarFill.style.width = `${percent}%`;
-        loaderCount.textContent = `${loadedCount} / ${FRAME_CONFIG.count}`;
-        loaderPercent.textContent = `${percent}%`;
+      const form = document.getElementById('kontakt-form');
+      const status = document.getElementById('form-status');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const vorname = form.vorname.value.trim();
+          const name = form.name.value.trim();
+          const firma = form.firma.value.trim();
+          const email = form.email.value.trim();
+          const message = form.message.value.trim();
+          const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+          if (!vorname || !name || !emailOk || !message) {
+            status.textContent = currentLang === 'de' ? 'Bitte alle Pflichtfelder korrekt ausfüllen.' : 'Please fill in all required fields correctly.';
+            return;
+          }
+          const subject = encodeURIComponent('Anfrage von ' + vorname + ' ' + name);
+          const body = encodeURIComponent(message + '\n\n' + vorname + ' ' + name + (firma ? '\n' + firma : '') + '\n' + email);
+          window.location.href = 'mailto:anisa@anisaimhof.ch?subject=' + subject + '&body=' + body;
+          status.textContent = currentLang === 'de' ? 'Danke! Ihr E-Mail-Programm wird geöffnet.' : 'Thank you! Your email client will open.';
+          form.reset();
+        });
       }
 
-      function showLoaderError(message) {
-        loaderError.textContent = message;
-        loaderError.classList.add("is-visible");
-      }
+      const container = document.getElementById('scroll-container');
+      const canvas = document.getElementById('villa-canvas');
+      const fallback = document.getElementById('villa-fallback');
+      const ctx = canvas.getContext('2d');
+      const lines = Array.from(document.querySelectorAll('.hero-line'));
 
-      function hideLoader() {
-        loader.classList.add("is-hidden");
-      }
+      lines.forEach((line) => {
+        line.style.position = 'absolute';
+        line.style.inset = '0';
+        line.style.display = 'flex';
+        line.style.flexDirection = 'column';
+        line.style.alignItems = 'center';
+        line.style.justifyContent = 'center';
+        line.style.opacity = '0';
+        line.style.transform = 'translateY(16px)';
+        line.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        line.style.willChange = 'opacity, transform';
+      });
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       function resizeCanvas() {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        const rect = canvas.getBoundingClientRect();
-        const targetWidth = Math.max(1, Math.round(rect.width * dpr));
-        const targetHeight = Math.max(1, Math.round(rect.height * dpr));
-
-        if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
-          canvas.width = targetWidth;
-          canvas.height = targetHeight;
-        }
-
-        if (hasAnyFrameLoaded) {
-          renderFrame(currentFrameIndex);
-        }
+        canvas.width = Math.floor(window.innerWidth * dpr);
+        canvas.height = Math.floor(window.innerHeight * dpr);
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
       }
 
-      function drawCover(image) {
-        const cw = canvas.width;
-        const ch = canvas.height;
-        const iw = image.naturalWidth || image.width || cw;
-        const ih = image.naturalHeight || image.height || ch;
-        const scale = Math.max(cw / iw, ch / ih);
-        const dw = iw * scale;
-        const dh = ih * scale;
-        const dx = (cw - dw) / 2;
-        const dy = (ch - dh) / 2;
-
-        ctx.clearRect(0, 0, cw, ch);
-        ctx.drawImage(image, dx, dy, dw, dh);
-      }
-
-      function requestFrame(index) {
-        if (index < 1 || index > FRAME_CONFIG.count) {
-          return Promise.resolve(null);
-        }
-
-        if (imageCache[index]) {
-          return Promise.resolve(imageCache[index]);
-        }
-
-        if (imagePromises[index]) {
-          return imagePromises[index];
-        }
-
-        imagePromises[index] = new Promise((resolve) => {
-          const img = new Image();
-
-          img.decoding = "async";
-          img.onload = () => {
-            imageCache[index] = img;
-            loadedCount += 1;
-            hasAnyFrameLoaded = true;
-            updateLoaderUi();
-
-            if (!firstFrameResolved && index === 1) {
-              firstFrameResolved = true;
-              hideLoader();
-            }
-
-            resolve(img);
-          };
-
-          img.onerror = () => {
-            failedFrames.add(index);
-
-            if (!firstFrameResolved && index === 1) {
-              firstFrameResolved = true;
-              showLoaderError(
-                "Der erste Frame konnte nicht geladen werden. Prüfe bitte, ob ./frames/frame_0001.webp existiert."
-              );
-            }
-
-            resolve(null);
-          };
-
-          img.src = framePath(index);
-        });
-
-        return imagePromises[index];
-      }
-
-      function getNearestLoadedFrame(targetIndex) {
-        if (imageCache[targetIndex]) {
-          return imageCache[targetIndex];
-        }
-
-        for (let offset = 1; offset < FRAME_CONFIG.count; offset += 1) {
-          const lower = targetIndex - offset;
-          const upper = targetIndex + offset;
-
-          if (lower >= 1 && imageCache[lower]) {
-            return imageCache[lower];
-          }
-
-          if (upper <= FRAME_CONFIG.count && imageCache[upper]) {
-            return imageCache[upper];
-          }
-        }
-
-        return null;
-      }
-
-      function renderFrame(index) {
-        currentFrameIndex = Math.max(1, Math.min(FRAME_CONFIG.count, index));
-
-        const candidate = getNearestLoadedFrame(currentFrameIndex);
-
-        frameStatus.textContent = `Frame ${padFrame(currentFrameIndex)} / ${padFrame(FRAME_CONFIG.count)}`;
-
-        if (!candidate) {
-          return;
-        }
-
-        drawCover(candidate);
-        stageFallback.style.opacity = "0";
-        renderedFrameIndex = currentFrameIndex;
-      }
-
-      function setActivePhase(phaseIndex) {
-        if (activePhaseIndex === phaseIndex) {
-          return;
-        }
-
-        activePhaseIndex = phaseIndex;
-        const phase = PHASES[phaseIndex];
-
-        phaseLabel.textContent = phase.label;
-        mobileKicker.textContent = phase.kicker;
-        mobileTitle.textContent = phase.title;
-        mobileText.textContent = phase.text;
-
-        copyCards.forEach((card) => {
-          const cardPhase = Number(card.getAttribute("data-phase"));
-          card.classList.toggle("is-active", cardPhase === phaseIndex);
-        });
-
-        progressDots.forEach((dot, index) => {
-          dot.classList.toggle("is-active", index === phaseIndex);
+      function updateLines(progress) {
+        const active = clamp(Math.floor(progress * HERO_LINES), 0, HERO_LINES - 1);
+        lines.forEach((line, i) => {
+          const isActive = i === active;
+          line.style.opacity = isActive ? '1' : '0';
+          line.style.transform = isActive ? 'translateY(0)' : 'translateY(16px)';
+          if (isActive) line.removeAttribute('inert'); else line.setAttribute('inert', '');
         });
       }
 
-      function resolvePhaseIndex(progress) {
-        for (let i = 0; i < PHASES.length; i += 1) {
-          const phase = PHASES[i];
-          const isLast = i === PHASES.length - 1;
-          const withinRange =
-            progress >= phase.minProgress &&
-            (progress < phase.maxProgress || isLast);
+      let frames = [];
+      let ticking = false;
+      let currentProgress = 0;
 
-          if (withinRange) {
-            return i;
-          }
+      function render() {
+        ticking = false;
+        updateLines(currentProgress);
+        if (frames.length && !prefersReduced) {
+          const idx = clamp(Math.round(currentProgress * (frames.length - 1)), 0, frames.length - 1);
+          const img = frames[idx];
+          if (img && img.complete) drawCover(ctx, canvas, img);
+        } else if (frames.length && prefersReduced) {
+          drawCover(ctx, canvas, frames[0]);
         }
-
-        return PHASES.length - 1;
       }
 
-      function preloadAllFramesInBatches() {
-        const batchSize = 8;
-        let current = 2;
-
-        async function loadBatch() {
-          if (current > FRAME_CONFIG.count) {
-            return;
-          }
-
-          const batch = [];
-          const end = Math.min(FRAME_CONFIG.count, current + batchSize - 1);
-
-          for (let i = current; i <= end; i += 1) {
-            batch.push(requestFrame(i));
-          }
-
-          current = end + 1;
-          await Promise.all(batch);
-          requestIdleCallbackSafe(loadBatch);
-        }
-
-        requestIdleCallbackSafe(loadBatch);
+      function computeProgress() {
+        const rect = container.getBoundingClientRect();
+        const scrollable = container.offsetHeight - window.innerHeight;
+        const scrolled = clamp(-rect.top, 0, scrollable);
+        currentProgress = scrollable > 0 ? scrolled / scrollable : 0;
       }
 
-      function requestIdleCallbackSafe(callback) {
-        if ("requestIdleCallback" in window) {
-          window.requestIdleCallback(callback, { timeout: 1200 });
-          return;
-        }
-
-        window.setTimeout(callback, 80);
+      function onScroll() {
+        computeProgress();
+        if (!ticking) { ticking = true; window.requestAnimationFrame(render); }
       }
 
-      function setupScrollTrigger() {
-        if (!window.gsap || !window.ScrollTrigger) {
-          showLoaderError("GSAP ScrollTrigger konnte nicht geladen werden.");
-          return;
+      resizeCanvas();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => { resizeCanvas(); onScroll(); }, { passive: true });
+
+      preloadFrames().then((loaded) => {
+        if (loaded.length) {
+          frames = loaded;
+          fallback.style.opacity = '0';
+          fallback.style.transition = 'opacity 0.6s ease';
         }
-
-        gsap.registerPlugin(ScrollTrigger);
-
-        const updateFromProgress = (progress) => {
-          const clamped = Math.max(0, Math.min(1, progress));
-          const frame = Math.max(
-            1,
-            Math.min(FRAME_CONFIG.count, Math.round(clamped * (FRAME_CONFIG.count - 1)) + 1)
-          );
-          const phaseIndex = resolvePhaseIndex(clamped);
-
-          setActivePhase(phaseIndex);
-          renderFrame(frame);
-        };
-
-        scrollTriggerInstance = ScrollTrigger.create({
-          trigger: "#scroll-container",
-          start: "top top",
-          end: "bottom bottom",
-          scrub: prefersReducedMotion ? false : 0.45,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            updateFromProgress(self.progress);
-          }
-        });
-
-        ScrollTrigger.refresh();
-        updateFromProgress(0);
-      }
-
-      async function init() {
-        document.getElementById("year").textContent = String(new Date().getFullYear());
-        updateLoaderUi();
-        resizeCanvas();
-
-        const firstFrame = await requestFrame(1);
-
-        if (firstFrame) {
-          renderFrame(1);
-          phaseLabel.textContent = PHASES[0].label;
-          mobileKicker.textContent = PHASES[0].kicker;
-          mobileTitle.textContent = PHASES[0].title;
-          mobileText.textContent = PHASES[0].text;
-          hideLoader();
-        } else {
-          showLoaderError(
-            "Die Startansicht konnte nicht geladen werden. Erwartet wird die Datei ./frames/frame_0001.webp relativ zur index.html."
-          );
-        }
-
-        preloadAllFramesInBatches();
-        setupScrollTrigger();
-      }
-
-      window.addEventListener("resize", () => {
-        resizeCanvas();
-
-        if (window.ScrollTrigger) {
-          ScrollTrigger.refresh();
-        }
+        computeProgress();
+        render();
       });
 
-      window.addEventListener("orientationchange", () => {
-        setTimeout(() => {
-          resizeCanvas();
+      computeProgress();
+      render();
 
-          if (window.ScrollTrigger) {
-            ScrollTrigger.refresh();
-          }
-        }, 120);
-      });
-
-      init();
-    })();
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+          });
+        }, { threshold: 0.2 });
+        revealEls.forEach((el) => io.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add('in'));
+      }
+    });
   </script>
+
 </body>
 </html>
